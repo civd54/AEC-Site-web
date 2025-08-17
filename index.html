@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Expertise Center | Accueil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Variables et reset */
+        :root {
+            --green: #228B22;
+            --orange: #FF8C00;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333333;
+            --white: #FFFFFF;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .btn-primary {
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-primary:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: var(--green);
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+        
+        .btn-primary:hover:before {
+            width: 100%;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--green);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--green);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--orange);
+            border-radius: 2px;
+        }
+        
+        /* Header Styles */
+        #main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--green), var(--orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.3);
+        }
+        
+        .logo-placeholder span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--white);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.4rem;
+            color: var(--green);
+            margin-bottom: 0;
+        }
+        
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--orange);
+            margin-top: -5px;
+        }
+        
+        #main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        #main-nav ul li {
+            margin: 0 15px;
+        }
+        
+        #main-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+        
+        #main-nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--orange);
+            transition: var(--transition);
+        }
+        
+        #main-nav ul li a:hover:after,
+        #main-nav ul li.active a:after {
+            width: 100%;
+        }
+        
+        .lang-switcher {
+            margin-left: 20px;
+            font-weight: 600;
+            color: var(--green);
+            cursor: pointer;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--green);
+        }
+        
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 0 5%;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            z-index: 2;
+            max-width: 800px;
+        }
+        
+        .hero-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+        
+        .scroll-icon {
+            margin-top: 10px;
+        }
+        
+        .mouse {
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--white);
+            border-radius: 15px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .wheel {
+            width: 6px;
+            height: 10px;
+            background-color: var(--white);
+            border-radius: 3px;
+            margin-top: 10px;
+            animation: scroll 2s infinite;
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(15px); opacity: 0; }
+        }
+        
+        /* Mission Section */
+        #mission {
+            padding: 120px 5% 80px;
+            background-color: var(--white);
+        }
+        
+        .mission-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .mission-text {
+            flex: 1;
+        }
+        
+        .mission-text p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .mission-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .image-placeholder {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(45deg, var(--light-gray), #e0e0e0);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .circle-animation {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--green), transparent);
+            opacity: 0.2;
+            animation: pulse 6s infinite;
+        }
+        
+        .circle-animation:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: -50px;
+            left: -50px;
+        }
+        
+        .circle-animation.delay-1 {
+            width: 150px;
+            height: 150px;
+            bottom: -30px;
+            right: -30px;
+            animation-delay: 2s;
+        }
+        
+        .circle-animation.delay-2 {
+            width: 120px;
+            height: 120px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 4s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.2); opacity: 0.3; }
+            100% { transform: scale(1); opacity: 0.2; }
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+            background: var(--light-gray);
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--orange);
+            display: block;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        
+        /* Domaines Section */
+        #domaines {
+            padding: 80px 5%;
+            background-color: var(--light-gray);
+        }
+        
+        .domaines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .domaine-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 35px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            z-index: 1;
+        }
+        
+        .domaine-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--green), var(--orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--white);
+            font-size: 2rem;
+        }
+        
+        .domaine-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--green);
+        }
+        
+        .domaine-card p {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+        
+        .card-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--green), var(--orange));
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+            z-index: -1;
+        }
+        
+        .domaine-card:hover .card-animation {
+            transform: translateX(0);
+            height: 100%;
+            transition: transform 0.5s ease, height 0.3s 0.5s ease;
+        }
+        
+        /* Histoire Section */
+        #histoire {
+            padding: 100px 5%;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                      url('https://images.unsplash.com/photo-1599420186946-7b6fb4e297f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            position: relative;
+        }
+        
+        .histoire-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .histoire-content h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--white);
+            font-size: 2.5rem;
+        }
+        
+        .histoire-content p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            background: rgba(34, 139, 34, 0.2);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid var(--orange);
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+        
+        .timeline-item {
+            text-align: center;
+            flex: 1;
+            position: relative;
+            padding: 0 20px;
+        }
+        
+        .timeline-item:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--orange);
+            transform: translateX(50%);
+        }
+        
+        .timeline-year {
+            width: 80px;
+            height: 80px;
+            background: var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .timeline-text {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        /* Projets Section */
+        #projets {
+            padding: 80px 5%;
+            background-color: var(--white);
+        }
+        
+        .projects-carousel {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .carousel-container {
+            display: flex;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            height: 400px;
+        }
+        
+        .project-slide {
+            min-width: 100%;
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        
+        .project-content {
+            flex: 1;
+            padding: 50px;
+            background: linear-gradient(135deg, var(--green), #1a6b1a);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .project-content h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .project-content p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .project-content ul {
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+        
+        .project-content ul li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .project-content ul li:before {
+            content: '•';
+            position: absolute;
+            left: -20px;
+            color: var(--orange);
+        }
+        
+        .project-image {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #555, #333);
+            position: relative;
+        }
+        
+        .project-tag {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: var(--orange);
+            color: var(--white);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        
+        .carousel-controls button {
+            background: var(--light-gray);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--green);
+            font-size: 1.2rem;
+        }
+        
+        .carousel-controls button:hover {
+            background: var(--orange);
+            color: var(--white);
+        }
+        
+        .carousel-indicators {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .carousel-indicators .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .carousel-indicators .indicator.active {
+            background: var(--orange);
+            transform: scale(1.2);
+        }
+        
+        /* Footer */
+        #main-footer {
+            background: linear-gradient(135deg, var(--dark-gray), #222);
+            color: var(--white);
+            padding: 70px 5% 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo .logo-placeholder {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--orange);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links h4,
+        .footer-contact h4,
+        .footer-newsletter h4 {
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h4:after,
+        .footer-contact h4:after,
+        .footer-newsletter h4:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--orange);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--orange);
+            padding-left: 5px;
+        }
+        
+        .footer-contact ul {
+            list-style: none;
+        }
+        
+        .footer-contact ul li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-contact ul li i {
+            color: var(--orange);
+            margin-right: 15px;
+            min-width: 20px;
+            margin-top: 5px;
+        }
+        
+        .footer-newsletter p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .footer-newsletter form {
+            display: flex;
+        }
+        
+        .footer-newsletter input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            outline: none;
+        }
+        
+        .footer-newsletter button {
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .footer-newsletter button:hover {
+            background: var(--green);
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .footer-extra-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-extra-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-extra-links a:hover {
+            color: var(--orange);
+        }
+        
+        /* Back to top */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #back-to-top:hover {
+            background: var(--green);
+            transform: translateY(-5px);
+        }
+        
+        /* Animations */
+        .animate-text {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .animate-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .animate-btn {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+        }
+        
+        .animate-btn.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .mission-content {
+                flex-direction: column;
+            }
+            
+            .project-slide {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .project-content,
+            .project-image {
+                flex: none;
+            }
+            
+            .project-image {
+                height: 300px;
+            }
+            
+            .timeline {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .timeline-item:not(:last-child):after {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            #hero {
+                padding: 0 20px;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            #main-nav {
+                position: fixed;
+                top: 100px;
+                right: -100%;
+                width: 300px;
+                height: calc(100vh - 100px);
+                background: var(--white);
+                padding: 30px;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            #main-nav.active {
+                right: 0;
+            }
+            
+            #main-nav ul {
+                flex-direction: column;
+            }
+            
+            #main-nav ul li {
+                margin: 15px 0;
+            }
+            
+            .lang-switcher {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec navigation -->
+    <header id="main-header">
+        <div class="logo-container">
+            <div class="logo-placeholder">
+                <span>AEC</span>
+            </div>
+            <div class="logo-text">
+                <h1>Agricultural Expertise Center</h1>
+                <p>Solutions durables pour l'Afrique</p>
+            </div>
+        </div>
+        
+        <nav id="main-nav">
+            <ul>
+                <li class="active"><a href="#">Accueil</a></li>
+                <li><a href="#">Axes d'intervention</a></li>
+                <li><a href="#">ODD</a></li>
+                <li><a href="#">Formations</a></li>
+                <li><a href="#">Projets</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <span>FR</span> | <span>EN</span>
+            </div>
+        </nav>
+        
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <h2 class="animate-text">Solutions durables pour la sécurité alimentaire</h2>
+            <p class="animate-text">Lutte contre la pauvreté par l'agriculture innovante</p>
+            <div class="hero-btns">
+                <button class="btn-primary animate-btn">Découvrir nos actions</button>
+                <button class="btn-secondary animate-btn">S'inscrire à une formation</button>
+            </div>
+        </div>
+        
+        <div class="hero-scroll-indicator">
+            <span>Explorer</span>
+            <div class="scroll-icon">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission">
+        <div class="section-header">
+            <h2>Notre Mission</h2>
+            <div class="divider"></div>
+        </div>
+        
+        <div class="mission-content">
+            <div class="mission-text">
+                <p>Agricultural Expertise Center (AEC) est une organisation à but non lucratif dont la raison sociale est de mettre au service des communautés et des personnes vulnérables des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                <p>Nous œuvrons pour la promotion de l'agriculture durable et les innovations technologiques et nous luttons contre les effets des changements climatiques.</p>
+                <div class="stats-container">
+                    <div class="stat">
+                        <span class="counter" data-target="+10">0</span>
+                        <span>jeunes entrepreneurs</span>
+                    </div>
+                    <div class="stat">
+                        <span class="counter" data-target="+8">0</span>
+                        <span>pays africains</span>
+                    </div>
+                    <div class="stat">
+                        <span class="counter" data-target="+5">0</span>
+                        <span>organisations partenaires</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mission-image">
+                <div class="image-placeholder">
+                    <div class="circle-animation"></div>
+                    <div class="circle-animation delay-1"></div>
+                    <div class="circle-animation delay-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Domaines d'activité -->
+    <section id="domaines">
+        <div class="section-header">
+            <h2>Nos Domaines d'Activité</h2>
+            <div class="divider"></div>
+        </div>
+        
+        <div class="domaines-grid">
+            <div class="domaine-card">
+                <div class="card-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Agriculture et Entrepreneuriat agricole durable</h3>
+                <p>Promotion de méthodes agricoles respectueuses de l'environnement et création d'entreprises viables.</p>
+                <div class="card-animation"></div>
+            </div>
+            
+            <div class="domaine-card">
+                <div class="card-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <h3>Sécurité alimentaire et Nutrition</h3>
+                <p>Amélioration de l'accès à une alimentation saine et équilibrée pour les communautés vulnérables.</p>
+                <div class="card-animation"></div>
+            </div>
+            
+            <div class="domaine-card">
+                <div class="card-icon">
+                    <i class="fas fa-cloud-sun"></i>
+                </div>
+                <h3>Environnement et Changement climatique</h3>
+                <p>Lutte contre les effets du changement climatique et promotion des énergies renouvelables.</p>
+                <div class="card-animation"></div>
+            </div>
+            
+            <div class="domaine-card">
+                <div class="card-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Formations et Renforcement de capacités</h3>
+                <p>Programmes de certification et développement des compétences pour les professionnels.</p>
+                <div class="card-animation"></div>
+            </div>
+            
+            <div class="domaine-card">
+                <div class="card-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h3>TICs dans l'agriculture</h3>
+                <p>Intégration des technologies innovantes pour moderniser les pratiques agricoles.</p>
+                <div class="card-animation"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Histoire Section -->
+    <section id="histoire">
+        <div class="histoire-content">
+            <h2>Notre Histoire</h2>
+            <p>Agricultural Expertise Center (AEC) est une organisation à but non lucratif née au Bénin en 2018 de la vision commune de deux ingénieurs agronomes passionnés : l'un spécialisé en sécurité alimentaire et production végétale, l'autre en sciences et techniques de production animale. Ensemble, ils ont décidé d'unir leurs expertises pour répondre à un constat alarmant : la faible productivité agricole et l'insécurité alimentaire qui touchaient de plein fouet les producteurs du département du Borgou, au nord du Bénin.</p>
+            
+            <p>Ce qui, au départ, était une initiative locale portée par l'engagement de terrain, a rapidement pris de l'ampleur. Conscients que les défis dépassaient les frontières régionales, les fondateurs ont officialisé l'enregistrement de l'organisation le 9 juillet 2020 auprès de la préfecture du Borgou à Parakou. Cet acte a marqué un tournant stratégique : élargir l'action de l'AEC à toutes les régions du Bénin et inscrire ses interventions dans une vision claire et ambitieuse : mettre au service des communautés et des personnes vulnérables des solutions durables pour assurer la sécurité alimentaire et lutter efficacement contre la pauvreté.</p>
+            
+            <p>Aujourd'hui, avec 5 années d'existence et autant d'années d'impact, Agricultural Expertise Center est reconnu pour son engagement et ses résultats tangibles auprès des communautés béninoises et africaines.</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2018</div>
+                    <div class="timeline-text">Fondation de l'organisation par deux ingénieurs agronomes</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-text">Enregistrement officiel auprès de la préfecture du Borgou</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-text">Reconnaissance régionale avec des projets dans 16 pays africains</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projets phares -->
+    <section id="projets">
+        <div class="section-header">
+            <h2>Nos Projets Phares</h2>
+            <div class="divider"></div>
+        </div>
+        
+        <div class="projects-carousel">
+            <div class="carousel-container">
+                <div class="project-slide active">
+                    <div class="project-content">
+                        <h3>AgriJob Booster</h3>
+                        <p>Projet mis en œuvre avec le co-financement de l'Union européenne pour soutenir l'entrepreneuriat des jeunes au Bénin.</p>
+                        <ul>
+                            <li>3000 jeunes formés</li>
+                            <li>2020-2023</li>
+                            <li>Partenariat avec Woord en Daad, DEDRAS et PBSA</li>
+                        </ul>
+                        <button class="btn-secondary">En savoir plus</button>
+                    </div>
+                    <div class="project-image">
+                        <div class="image-placeholder">
+                            <div class="project-tag">Jeunesse</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-slide">
+                    <div class="project-content">
+                        <h3>Certification CVAD</h3>
+                        <p>Programme de certification en Chaînes de Valeurs Agricoles Durables en contexte africain.</p>
+                        <ul>
+                            <li>416 candidatures</li>
+                            <li>31 boursiers et 40 demi-boursiers</li>
+                            <li>16 pays africains</li>
+                        </ul>
+                        <button class="btn-secondary">En savoir plus</button>
+                    </div>
+                    <div class="project-image">
+                        <div class="image-placeholder">
+                            <div class="project-tag">Formation</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-slide">
+                    <div class="project-content">
+                        <h3>Programme PAEJAMA</h3>
+                        <p>Programme d'Appui à l'Employabilité des Jeunes Africains aux Métiers de l'Agriculture.</p>
+                        <ul>
+                            <li>Formation technique</li>
+                            <li>Accompagnement à l'insertion</li>
+                            <li>Partenariats avec le secteur privé</li>
+                        </ul>
+                        <button class="btn-secondary">En savoir plus</button>
+                    </div>
+                    <div class="project-image">
+                        <div class="image-placeholder">
+                            <div class="project-tag">Emploi</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-controls">
+                <button id="prev-project"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel-indicators">
+                    <span class="indicator active"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                </div>
+                <button id="next-project"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <div class="logo-placeholder">
+                        <span>AEC</span>
+                    </div>
+                    <h3>Agricultural Expertise Center</h3>
+                </div>
+                <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Liens rapides</h4>
+                <ul>
+                    <li><a href="#">À propos de nous</a></li>
+                    <li><a href="#">Nos programmes</a></li>
+                    <li><a href="#">Formations</a></li>
+                    <li><a href="#">Partenaires</a></li>
+                    <li><a href="#">Témoignages</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Contactez-nous</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Zongo II, Parakou, BENIN</li>
+                    <li><i class="fas fa-phone"></i> (+229) 96886696 / 66843095</li>
+                    <li><i class="fas fa-envelope"></i> contact@aec-afrique.org</li>
+                    <li><i class="fas fa-envelope"></i> aecenter@outlook.fr</li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h4>Restez informés</h4>
+                <p>Inscrivez-vous pour recevoir nos actualités</p>
+                <form>
+                    <input type="email" placeholder="Votre email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
+            <div class="footer-extra-links">
+                <a href="#">Politique de confidentialité</a>
+                <a href="#">Mentions légales</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Initialisation des animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation des éléments au défilement
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.animate-text, .animate-btn');
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.classList.add('active');
+                    }
+                });
+            };
+            
+            // Initial check on load
+            animateOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Back to top button
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Compteurs animés
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+            
+            const startCounter = () => {
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const increment = target / speed;
+                        
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + increment);
+                            setTimeout(updateCount, 10);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    
+                    updateCount();
+                });
+            };
+            
+            // Démarrer les compteurs quand ils sont visibles
+            const counterSection = document.getElementById('mission');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startCounter();
+                        observer.disconnect();
+                    }
+                });
+            });
+            
+            observer.observe(counterSection);
+            
+            // Carousel de projets
+            const carousel = document.querySelector('.carousel-container');
+            const slides = document.querySelectorAll('.project-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            const prevBtn = document.getElementById('prev-project');
+            const nextBtn = document.getElementById('next-project');
+            
+            let currentIndex = 0;
+            const slideCount = slides.length;
+            
+            const goToSlide = (index) => {
+                carousel.style.transform = `translateX(-${index * 100}%)`;
+                indicators.forEach(ind => ind.classList.remove('active'));
+                indicators[index].classList.add('active');
+                currentIndex = index;
+            };
+            
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % slideCount;
+                goToSlide(currentIndex);
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                goToSlide(currentIndex);
+            });
+            
+            // Navigation par indicateurs
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+            });
+            
+            // Auto-play carousel
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % slideCount;
+                goToSlide(currentIndex);
+            }, 5000);
+            
+            // Menu mobile
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mainNav = document.getElementById('main-nav');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

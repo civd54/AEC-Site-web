@@ -22,6 +22,28 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+/* Styles pour le logo personnalisé */
+.logo-custom {
+    width: 180px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-custom img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* Ajustement pour l'espace logo sur mobile */
+@media (max-width: 768px) {
+    .logo-custom {
+        width: 150px;
+        height: 50px;
+    }
+}
         
         body {
             font-family: 'Open Sans', sans-serif;
@@ -230,7 +252,7 @@
             align-items: center;
         }
         
-        .logo-placeholder {
+        /*.logo-placeholder {
             width: 70px;
             height: 70px;
             background: linear-gradient(135deg, var(--green), var(--orange));
@@ -248,8 +270,16 @@
             font-weight: 900;
             font-size: 2rem;
             color: var(--white);
-        }
-        
+        }*/
+        /* Ajustements pour l'en-tête avec le nouveau logo */
+#main-header {
+    padding: 15px 5%; /* Réduisez le padding si nécessaire */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
         .logo-text h1 {
             font-size: 1.6rem;
             color: var(--green);
@@ -1333,13 +1363,14 @@
     <!-- Header avec navigation -->
     <header id="main-header">
         <div class="logo-container">
-            <div class="logo-placeholder">
-                <span>AEC</span>
-            </div>
-            <div class="logo-text">
-                <h1>Agricultural Expertise Center</h1>
-                <p>Solutions durables pour l'Afrique</p>
-            </div>
+    <div class="logo-custom">
+        <img src="logo.png" alt="Logo AEC - Agricultural Expertise Center">
+    </div>
+    <!-- Supprimez la section logo-text si votre logo contient déjà le texte -->
+    <div class="logo-text" style="display:none;">
+        <h1>Agricultural Expertise Center</h1>
+        <p>Solutions durables pour l'Afrique</p>
+    </div>
         </div>
         
         <nav id="main-nav">

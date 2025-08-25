@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifications - AEC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables et reset */
+        :root {
+            --green: #228B22;
+            --orange: #FF8C00;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333333;
+            --white: #FFFFFF;
+            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+        
+        /* Animations de base */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInFromTop {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromBottom {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px var(--orange); }
+            50% { box-shadow: 0 0 20px var(--orange); }
+            100% { box-shadow: 0 0 5px var(--orange); }
+        }
+        
+        /* Styles généraux */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Header Styles */
+        #main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            animation: slideInFromTop 0.8s ease-out;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--green), var(--orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.3);
+        }
+        
+        .logo-placeholder span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--white);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.4rem;
+            color: var(--green);
+            margin-bottom: 0;
+        }
+        
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--orange);
+            margin-top: -5px;
+        }
+        
+        #main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        #main-nav ul li {
+            margin: 0 15px;
+        }
+        
+        #main-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+        
+        #main-nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--orange);
+            transition: var(--transition);
+        }
+        
+        #main-nav ul li a:hover:after,
+        #main-nav ul li.active a:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--green);
+        }
+        
+        /* Hero Section */
+        .page-hero {
+            padding: 160px 5% 80px;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .page-hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        /* Certifications Section */
+        #certifications {
+            padding: 100px 5%;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--green);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50);
+            width: 100px;
+            height: 5px;
+            background: var(--orange);
+            border-radius: 3px;
+        }
+        
+        .certification-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .certification-card.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .certification-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+        }
+        
+        .certification-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            gap: 30px;
+        }
+        
+        .certification-icon {
+            width: 100px;
+            height: 100px;
+            min-width: 100px;
+            background: linear-gradient(135deg, var(--green), var(--orange));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2.5rem;
+            box-shadow: 0 8px 20px rgba(34, 139, 34, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .certification-title {
+            flex: 1;
+        }
+        
+        .certification-title h3 {
+            font-size: 2.2rem;
+            color: var(--green);
+            margin-bottom: 10px;
+        }
+        
+        .certification-title p {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--light-gray), #e8e8e8);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: var(--transition);
+            border-left: 5px solid var(--orange);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--orange);
+            display: block;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            font-weight: 600;
+        }
+        
+        .implementation {
+            background: linear-gradient(135deg, var(--light-gray), #e8e8e8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .implementation h4 {
+            font-size: 1.5rem;
+            color: var(--green);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .implementation-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .implementation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .implementation-icon {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            background: var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+        }
+        
+        /* Other Certifications */
+        #other-certifications {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, var(--green) 0%, #1a6b1a 100%);
+            color: var(--white);
+        }
+        
+        .other-certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .other-cert-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .other-cert-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .other-cert-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--orange);
+        }
+        
+        .other-cert-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* CTA Section */
+        #cta {
+            padding: 100px 5%;
+            text-align: center;
+        }
+        
+        #cta h2 {
+            font-size: 2.5rem;
+            color: var(--green);
+            margin-bottom: 30px;
+        }
+        
+        #cta p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+        
+        /* Footer */
+        #main-footer {
+            background: linear-gradient(135deg, var(--dark-gray), #222);
+            color: var(--white);
+            padding: 70px 5% 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+        
+        .footer-about {
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .footer-logo .logo-placeholder {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Back to top */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #back-to-top:hover {
+            background: var(--green);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .certification-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .page-hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .certification-card {
+                padding: 30px;
+            }
+            
+            .certification-title h3 {
+                font-size: 1.8rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            #main-nav {
+                position: fixed;
+                top: 100px;
+                right: -100%;
+                width: 300px;
+                height: calc(100vh - 100px);
+                background: var(--white);
+                padding: 30px;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            #main-nav.active {
+                right: 0;
+            }
+            
+            #main-nav ul {
+                flex-direction: column;
+            }
+            
+            #main-nav ul li {
+                margin: 15px 0;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .page-hero p {
+                font-size: 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .certification-card {
+                padding: 20px;
+            }
+            
+            .certification-title h3 {
+                font-size: 1.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .implementation-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec navigation -->
+    <header id="main-header">
+        <div class="logo-container">
+            <div class="logo-placeholder">
+                <span>AEC</span>
+            </div>
+            <div class="logo-text">
+                <h1>Agricultural Expertise Center</h1>
+                <p>Solutions durables pour l'Afrique</p>
+            </div>
+        </div>
+        
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="axes.html">Axes d'intervention</a></li>
+                <li><a href="odds.html">ODDs</a></li>
+                <li class="active"><a href="certifications.html">Certifications</a></li>
+                <li><a href="#">Projets</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Certifications & Formations</h1>
+            <p>Découvrez nos programmes de certification pour professionnels du secteur agricole en Afrique</p>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nos Programmes de Certification</h2>
+            </div>
+            
+            <div class="certification-card">
+                <div class="certification-header">
+                    <div class="certification-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="certification-title">
+                        <h3>Certification en Chaînes de Valeurs Agricoles Durables (CVAD)</h3>
+                        <p>Programme de formation avancée pour professionnels du secteur agricole en contexte africain</p>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">416</span>
+                        <span class="stat-label">Candidatures reçues</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <span class="stat-number">31</span>
+                        <span class="stat-label">Boursiers complets</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                      <span class="stat-number">40</span>
+                        <span class="stat-label">Demi-boursiers</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <span class="stat-number">16</span>
+                        <span class="stat-label">Pays représentés</span>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">10</span>
+                        <span class="stat-label">Femmes participantes</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <span class="stat-number">41</span>
+                        <span class="stat-label">Hommes participants</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <span class="stat-number">70</span>
+                        <span class="stat-label">Organisations partenaires</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Modules de formation</span>
+                    </div>
+                </div>
+                
+                <div class="implementation">
+                    <h4>Modalités de mise en œuvre</h4>
+                    <div class="implementation-content">
+                        <div class="implementation-item">
+                            <div class="implementation-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div>
+                                <h5>Structure du programme</h5>
+                                <p>La certification CVAD est constituée de 08 modules spécialisés, chaque module durant 03 jours.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="implementation-item">
+                            <div class="implementation-icon">
+                                <i class="fas fa-laptop"></i>
+                            </div>
+                            <div>
+                                <h5>Plateforme d'apprentissage</h5>
+                                <p>Le cours se fait en ligne sur notre plateforme d'e-learning CANVAS, accessible 24h/24.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="implementation-item">
+                            <div class="implementation-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h5>Interactions formateurs</h5>
+                                <p>Une séance d'échange entre les formateurs et les participants est organisée à la fin de chaque module.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Certifications -->
+    <section id="other-certifications">
+        <div class="container">
+            <div class="section-header">
+                <h2>Autres Programmes de Formation</h2>
+            </div>
+            
+            <div class="other-certs-grid">
+                <div class="other-cert-card">
+                    <div class="other-cert-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Agriculture Durable</h3>
+                    <p>Formation aux pratiques agricoles respectueuses de l'environnement et économiquement viables.</p>
+                </div>
+                
+                <div class="other-cert-card">
+                    <div class="other-cert-icon">
+                        <i class="fas fa-tractor"></i>
+                    </div>
+                    <h3>Technologies Agricoles</h3>
+                    <p>Maîtrise des nouvelles technologies et innovations dans le secteur agricole africain.</p>
+                </div>
+                
+                <div class="other-cert-card">
+                    <div class="other-cert-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Gestion d'Entreprise Agricole</h3>
+                    <p>Formation à la gestion économique et financière des exploitations agricoles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta">
+        <div class="container">
+            <h2>Intéressé par nos certifications?</h2>
+            <p>Rejoignez nos programmes de formation et devenez un expert reconnu dans le domaine des chaînes de valeurs agricoles durables. Nos certifications sont conçues pour les professionnels qui souhaitent avoir un impact positif sur l'agriculture africaine.</p>
+            <button class="btn-primary">Postuler maintenant</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-placeholder">
+                            <span>AEC</span>
+                        </div>
+                        <h3>Agricultural Expertise Center</h3>
+                    </div>
+                    <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
+                <div class="footer-extra-links">
+                    <a href="#">Politique de confidentialité</a>
+                    <a href="#">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Initialisation des animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation des éléments au défilement
+            const animateOnScroll = () => {
+                const certificationCards = document.querySelectorAll('.certification-card');
+                certificationCards.forEach((card, index) => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (cardPosition < screenPosition) {
+                        setTimeout(() => {
+                            card.classList.add('animated');
+                        }, index * 200);
+                    }
+                });
+                
+                const statCards = document.querySelectorAll('.stat-card');
+                statCards.forEach((card, index) => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (cardPosition < screenPosition) {
+                        setTimeout(() => {
+                            card.style.animation = `slideInFromBottom 0.8s ease-out ${index * 0.1}s forwards`;
+                        }, index * 100);
+                    }
+                });
+            };
+            
+            // Initial check on load
+            animateOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Back to top button
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Menu mobile
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mainNav = document.getElementById('main-nav');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+            });
+            
+            // Animation des icônes
+            const certificationIcons = document.querySelectorAll('.certification-icon');
+            certificationIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', () => {
+                    icon.style.animation = 'pulse 1s, glow 1.5s infinite';
+                });
+                
+                icon.addEventListener('mouseleave', () => {
+                    icon.style.animation = 'float 6s ease-in-out infinite';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+     

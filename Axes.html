@@ -1,1 +1,739 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axes d'Intervention - AEC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables et reset */
+        :root {
+            --green: #228B22;
+            --orange: #FF8C00;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333333;
+            --white: #FFFFFF;
+            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background: linear-gradient(135deg, var(--light-gray) 0%, #f9f9f9 100%);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+        
+        /* Animations de base */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInFromTop {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromBottom {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px var(--orange); }
+            50% { box-shadow: 0 0 20px var(--orange); }
+            100% { box-shadow: 0 0 5px var(--orange); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Styles généraux */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Header Styles */
+        #main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            animation: slideInFromTop 0.8s ease-out;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--green), var(--orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.3);
+        }
+        
+        .logo-placeholder span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--white);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.4rem;
+            color: var(--green);
+            margin-bottom: 0;
+        }
+        
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--orange);
+            margin-top: -5px;
+        }
+        
+        #main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        #main-nav ul li {
+            margin: 0 15px;
+        }
+        
+        #main-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+        
+        #main-nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--orange);
+            transition: var(--transition);
+        }
+        
+        #main-nav ul li a:hover:after,
+        #main-nav ul li.active a:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--green);
+        }
+        
+        /* Hero Section */
+        .page-hero {
+            padding: 160px 5% 80px;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1625246333193-4c8f5e0a90a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .page-hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        /* Axes Section */
+        #axes {
+            padding: 100px 5%;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--green);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: var(--orange);
+            border-radius: 3px;
+        }
+        
+        .axes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .axe-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .axe-card.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .axe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .axe-number {
+            font-size: 5rem;
+            font-weight: 900;
+            color: rgba(34, 139, 34, 0.15);
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            z-index: 0;
+        }
+        
+        .axe-icon {
+            width: 120px;
+            height: 120px;
+            min-width: 120px;
+            background: linear-gradient(135deg, var(--green), var(--orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+            z-index: 1;
+            box-shadow: 0 8px 20px rgba(34, 139, 34, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .axe-content {
+            flex: 1;
+            z-index: 1;
+        }
+        
+        .axe-content h3 {
+            font-size: 1.8rem;
+            color: var(--green);
+            margin-bottom: 15px;
+        }
+        
+        .axe-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--dark-gray);
+        }
+        
+        /* Call to Action */
+        #cta {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, var(--green) 0%, #1a6b1a 100%);
+            color: var(--white);
+            text-align: center;
+        }
+        
+        #cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        #cta p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+        
+        /* Footer */
+        #main-footer {
+            background: linear-gradient(135deg, var(--dark-gray), #222);
+            color: var(--white);
+            padding: 70px 5% 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+        
+        .footer-about {
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo .logo-placeholder {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Back to top */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #back-to-top:hover {
+            background: var(--green);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .axe-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            .axe-icon {
+                width: 100px;
+                height: 100px;
+                min-width: 100px;
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .page-hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            #main-nav {
+                position: fixed;
+                top: 100px;
+                right: -100%;
+                width: 300px;
+                height: calc(100vh - 100px);
+                background: var(--white);
+                padding: 30px;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            #main-nav.active {
+                right: 0;
+            }
+            
+            #main-nav ul {
+                flex-direction: column;
+            }
+            
+            #main-nav ul li {
+                margin: 15px 0;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .page-hero p {
+                font-size: 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .axe-card {
+                padding: 25px;
+            }
+            
+            .axe-content h3 {
+                font-size: 1.5rem;
+            }
+            
+            .axe-content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec navigation -->
+    <header id="main-header">
+        <div class="logo-container">
+            <div class="logo-placeholder">
+                <span>AEC</span>
+            </div>
+            <div class="logo-text">
+                <h1>Agricultural Expertise Center</h1>
+                <p>Solutions durables pour l'Afrique</p>
+            </div>
+        </div>
+        
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li class="active"><a href="axes.html">Axes d'intervention</a></li>
+                <li><a href="#">ODD</a></li>
+                <li><a href="#">Formations</a></li>
+                <li><a href="#">Projets</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
 
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Axes d'Intervention</h1>
+            <p>Découvrez les cinq piliers stratégiques qui guident notre action pour une agriculture durable en Afrique</p>
+        </div>
+    </section>
+
+    <!-- Axes Section -->
+    <section id="axes">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nos Axes Stratégiques</h2>
+            </div>
+            
+            <div class="axes-container">
+                <div class="axe-card">
+                    <span class="axe-number">1</span>
+                    <div class="axe-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="axe-content">
+                        <h3>Renforcement de capacités et de certification des cadres africains</h3>
+                        <p>Nous développons des programmes de formation et de certification pour renforcer les compétences des professionnels africains du secteur agricole. Notre approche combine formation théorique et pratique pour assurer une expertise de qualité adaptée aux défis locaux.</p>
+                    </div>
+                </div>
+                
+                <div class="axe-card">
+                    <span class="axe-number">2</span>
+                    <div class="axe-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="axe-content">
+                        <h3>Incubation et mise à échelle des entreprises agricoles innovantes</h3>
+                        <p>Nous accompagnons les entrepreneurs agricoles dans le développement et la croissance de leurs projets innovants. De l'idée à la maturation, nous fournissons un soutien technique, financier et stratégique pour garantir la pérennité des entreprises.</p>
+                    </div>
+                </div>
+                
+                <div class="axe-card">
+                    <span class="axe-number">3</span>
+                    <div class="axe-icon">
+                        <i class="fas fa-tractor"></i>
+                    </div>
+                    <div class="axe-content">
+                        <h3>Développement de compétences et fourniture de technologies agricoles innovantes</h3>
+                        <p>Nous facilitons l'accès aux technologies agricoles modernes et adaptées aux contextes africains. Notre action comprend la formation aux nouvelles techniques et la promotion d'outils innovants pour moderniser l'agriculture africaine.</p>
+                    </div>
+                </div>
+                
+                <div class="axe-card">
+                    <span class="axe-number">4</span>
+                    <div class="axe-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <div class="axe-content">
+                        <h3>Structuration et développement des chaines de valeurs agricoles en Afrique</h3>
+                        <p>Nous travaillons à renforcer l'ensemble des maillons des filières agricoles, de la production à la commercialisation. Notre approche vise à créer des écosystèmes vertueux où chaque acteur tire profit de la valeur ajoutée.</p>
+                    </div>
+                </div>
+                
+                <div class="axe-card">
+                    <span class="axe-number">5</span>
+                    <div class="axe-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div class="axe-content">
+                        <h3>Partenariats stratégiques et coopération internationale</h3>
+                        <p>Nous établissons des collaborations solides avec des institutions locales et internationales pour maximiser l'impact de nos actions. Ces partenariats permettent d'échanger les meilleures pratiques et de mobiliser des ressources complémentaires.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="cta">
+        <div class="container">
+            <h2>Prêt à transformer l'agriculture africaine avec nous?</h2>
+            <p>Rejoignez notre réseau de partenaires ou découvrez comment nos programmes peuvent bénéficier à votre organisation ou communauté.</p>
+            <button class="btn-primary">Contactez-nous</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-placeholder">
+                            <span>AEC</span>
+                        </div>
+                        <h3>Agricultural Expertise Center</h3>
+                    </div>
+                    <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
+                <div class="footer-extra-links">
+                    <a href="#">Politique de confidentialité</a>
+                    <a href="#">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Initialisation des animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation des éléments au défilement
+            const animateOnScroll = () => {
+                const axeCards = document.querySelectorAll('.axe-card');
+                axeCards.forEach((card, index) => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (cardPosition < screenPosition) {
+                        setTimeout(() => {
+                            card.classList.add('animated');
+                        }, index * 200);
+                    }
+                });
+            };
+            
+            // Initial check on load
+            animateOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Back to top button
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Menu mobile
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mainNav = document.getElementById('main-nav');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+            });
+            
+            // Animation des icônes
+            const axeIcons = document.querySelectorAll('.axe-icon');
+            axeIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', () => {
+                    icon.style.animation = 'pulse 1s, spin 2s linear';
+                });
+                
+                icon.addEventListener('mouseleave', () => {
+                    icon.style.animation = 'float 6s ease-in-out infinite';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

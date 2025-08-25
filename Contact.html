@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - AEC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables et reset */
+        :root {
+            --green: #228B22;
+            --orange: #FF8C00;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333333;
+            --white: #FFFFFF;
+            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+        
+        /* Animations de base */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInFromTop {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromBottom {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px var(--orange); }
+            50% { box-shadow: 0 0 20px var(--orange); }
+            100% { box-shadow: 0 0 5px var(--orange); }
+        }
+        
+        /* Styles généraux */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.3);
+        }
+        
+        /* Header Styles */
+        #main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--green), var(--orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.3);
+        }
+        
+        .logo-placeholder span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--white);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.4rem;
+            color: var(--green);
+            margin-bottom: 0;
+        }
+        
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--orange);
+            margin-top: -5px;
+        }
+        
+        #main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        #main-nav ul li {
+            margin: 0 15px;
+        }
+        
+        #main-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+        
+        #main-nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--orange);
+            transition: var(--transition);
+        }
+        
+        #main-nav ul li a:hover:after,
+        #main-nav ul li.active a:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--green);
+        }
+        
+        /* Hero Section */
+        .page-hero {
+            padding: 160px 5% 80px;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1516387938699-a93567ec168e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .page-hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        /* Contact Section */
+        #contact {
+            padding: 100px 5%;
+            position: relative;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, var(--green), #1a6b1a);
+            border-radius: 20px;
+            padding: 50px;
+            color: var(--white);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contact-info h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--orange);
+            border-radius: 2px;
+        }
+        
+        .contact-details {
+            margin-bottom: 40px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+        
+        .contact-item:hover .contact-icon {
+            background: var(--orange);
+            transform: scale(1.1);
+        }
+        
+        .contact-text h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .contact-text p, .contact-text a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-text a:hover {
+            color: var(--orange);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--orange);
+            transform: translateY(-5px);
+        }
+        
+        .contact-form {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-form h2 {
+            font-size: 2.2rem;
+            color: var(--green);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contact-form h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--orange);
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--light-gray);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--green);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Map Section */
+        #map {
+            padding: 0 5% 100px;
+        }
+        
+        .map-container {
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* FAQ Section */
+        #faq {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, var(--light-gray) 0%, #e8e8e8 100%);
+        }
+        
+        .faq-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .faq-header h2 {
+            font-size: 2.8rem;
+            color: var(--green);
+            margin-bottom: 20px;
+        }
+        
+        .faq-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: var(--white);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-question {
+            padding: 25px 30px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--green);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .faq-question:hover {
+            color: var(--orange);
+        }
+        
+        .faq-question i {
+            transition: var(--transition);
+        }
+        
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 30px 25px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        /* Footer */
+        #main-footer {
+            background: linear-gradient(135deg, var(--dark-gray), #222);
+            color: var(--white);
+            padding: 70px 5% 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+        
+        .footer-about {
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo .logo-placeholder {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Back to top */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #back-to-top:hover {
+            background: var(--green);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .map-container {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .page-hero p {
+                font-size: 1.2rem;
+            }
+            
+            .contact-info, .contact-form {
+                padding: 30px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            #main-nav {
+                position: fixed;
+                top: 100px;
+                right: -100%;
+                width: 300px;
+                height: calc(100vh - 100px);
+                background: var(--white);
+                padding: 30px;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            #main-nav.active {
+                right: 0;
+            }
+            
+            #main-nav ul {
+                flex-direction: column;
+            }
+            
+            #main-nav ul li {
+            margin: 15px 0;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .page-hero p {
+                font-size: 1rem;
+            }
+            
+            .contact-info, .contact-form {
+                padding: 20px;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            .faq-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .faq-question {
+                padding: 20px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec navigation -->
+    <header id="main-header">
+        <div class="logo-container">
+            <div class="logo-placeholder">
+                <span>AEC</span>
+            </div>
+            <div class="logo-text">
+                <h1>Agricultural Expertise Center</h1>
+                <p>Solutions durables pour l'Afrique</p>
+            </div>
+        </div>
+        
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="axes.html">Axes d'intervention</a></li>
+                <li><a href="odds.html">ODDs</a></li>
+                <li><a href="certifications.html">Certifications</a></li>
+                <li><a href="projets.html">Projets</a></li>
+                <li class="active"><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Contactez-nous</h1>
+            <p>Une question, un projet ou besoin d'informations? Notre équipe est à votre écoute</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Nos Coordonnées</h2>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Adresse</h4>
+                                <p>Zongo II, Parakou, BENIN</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Téléphone</h4>
+                                <p>(+229) 96886696</p>
+                                <p>(+229) 66843095</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <p><a href="mailto:contact@aec-afrique.org">contact@aec-afrique.org</a></p>
+                                <p><a href="mailto:aecenter@outlook.fr">aecenter@outlook.fr</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>WhatsApp</h4>
+                                <p><a href="https://wa.me/22996886696">+229 96886696</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h2>Envoyez-nous un message</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nom complet</label>
+                            <input type="text" id="name" class="form-control" placeholder="Votre nom et prénom" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Adresse email</label>
+                            <input type="email" id="email" class="form-control" placeholder="votre@email.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Sujet</label>
+                            <input type="text" id="subject" class="form-control" placeholder="Objet de votre message" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" placeholder="Votre message..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map">
+        <div class="container">
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126874.49999999999!2d2.55!3d9.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023a21e49d1141d%3A0x5d3e5a5a5a5a5a5a!2sParakou%2C%20Benin!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="container">
+            <div class="faq-container">
+                <div class="faq-header">
+                    <h2>Questions Fréquentes</h2>
+                    <p>Retrouvez les réponses aux questions les plus fréquemment posées</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Comment puis-je m'inscrire à vos programmes de formation?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Pour vous inscrire à nos programmes de formation, veuillez nous contacter par email ou téléphone. Notre équipe vous guidera à travers le processus d'inscription et vous fournira toutes les informations nécessaires sur les prérequis, les dates et les modalités de formation.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Proposez-vous des formations en ligne?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui, nous proposons plusieurs formations en ligne via notre plateforme d'e-learning. La certification CVAD, par exemple, se déroule entièrement en ligne avec des sessions interactives avec nos formateurs.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Comment puis-je devenir partenaire de l'AEC?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nous sommes toujours ouverts à de nouveaux partenariats. Veuillez nous contacter directement pour discuter des possibilités de collaboration. Nous travaillons avec des organisations publiques, privées et des ONG partageant nos objectifs de développement durable.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Quels sont les horaires d'ouverture de vos bureaux?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nos bureaux sont ouverts du lundi au vendredi de 8h00 à 17h00. Vous pouvez également nous contacter par email à tout moment, et nous vous répondrons dans les plus brefs délais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-placeholder">
+                            <span>AEC</span>
+                        </div>
+                        <h3>Agricultural Expertise Center</h3>
+                    </div>
+                    <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
+                <div class="footer-extra-links">
+                    <a href="#">Politique de confidentialité</a>
+                    <a href="#">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Initialisation des animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation des éléments au défilement
+            const animateOnScroll = () => {
+                const contactItems = document.querySelectorAll('.contact-item');
+                contactItems.forEach((item, index) => {
+                    const itemPosition = item.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (itemPosition < screenPosition) {
+                        setTimeout(() => {
+                            item.style.animation = `slideInFromLeft 0.8s ease-out ${index * 0.1}s forwards`;
+                            item.style.opacity = 0;
+                        }, index * 100);
+                    }
+                });
+                
+                const formElements = document.querySelectorAll('.form-group');
+                formElements.forEach((element, index) => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        setTimeout(() => {
+                            element.style.animation = `slideInFromRight 0.8s ease-out ${index * 0.1}s forwards`;
+                            element.style.opacity = 0;
+                        }, index * 100);
+                    }
+                });
+            };
+            
+            // Initial check on load
+            animateOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Back to top button
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Menu mobile
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mainNav = document.getElementById('main-nav');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+            });
+            
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // Form submission
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simple form validation
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                if (name && email && subject && message) {
+                    // Here you would normally send the form data to a server
+                    alert('Merci pour votre message! Nous vous contacterons bientôt.');
+                    contactForm.reset();
+                } else {
+                    alert('Veuillez remplir tous les champs du formulaire.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

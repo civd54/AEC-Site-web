@@ -1,1 +1,789 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODDs Visés - AEC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables et reset */
+        :root {
+            --green: #228B22;
+            --orange: #FF8C00;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333333;
+            --white: #FFFFFF;
+            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+        
+        /* Animations de base */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInFromTop {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromBottom {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px var(--orange); }
+            50% { box-shadow: 0 0 20px var(--orange); }
+            100% { box-shadow: 0 0 5px var(--orange); }
+        }
+        
+        /* Styles généraux */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Header Styles */
+        #main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            animation: slideInFromTop 0.8s ease-out;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--green), var(--orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.3);
+        }
+        
+        .logo-placeholder span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--white);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.4rem;
+            color: var(--green);
+            margin-bottom: 0;
+        }
+        
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--orange);
+            margin-top: -5px;
+        }
+        
+        #main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        #main-nav ul li {
+            margin: 0 15px;
+        }
+        
+        #main-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+        
+        #main-nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--orange);
+            transition: var(--transition);
+        }
+        
+        #main-nav ul li a:hover:after,
+        #main-nav ul li.active a:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--green);
+        }
+        
+        /* Hero Section */
+        .page-hero {
+            padding: 160px 5% 80px;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .page-hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        /* ODDs Section */
+        #odds {
+            padding: 100px 5%;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--green);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: var(--orange);
+            border-radius: 3px;
+        }
+        
+        .odds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .odd-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            border-top: 5px solid var(--green);
+        }
+        
+        .odd-card.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .odd-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .odd-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: rgba(34, 139, 34, 0.15);
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            z-index: 0;
+            line-height: 1;
+        }
+        
+        .odd-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--green), var(--orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--white);
+            font-size: 2rem;
+            z-index: 1;
+            box-shadow: 0 8px 20px rgba(34, 139, 34, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .odd-content h3 {
+            font-size: 1.5rem;
+            color: var(--green);
+            margin-bottom: 15px;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .odd-content p {
+            color: var(--dark-gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* Info Section */
+        #info {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, var(--green) 0%, #1a6b1a 100%);
+            color: var(--white);
+        }
+        
+        .info-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .info-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .info-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+        
+        /* Footer */
+        #main-footer {
+            background: linear-gradient(135deg, var(--dark-gray), #222);
+            color: var(--white);
+            padding: 70px 5% 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+        
+        .footer-about {
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo .logo-placeholder {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Back to top */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #back-to-top:hover {
+            background: var(--green);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .odds-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .page-hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            #main-nav {
+                position: fixed;
+                top: 100px;
+                right: -100%;
+                width: 300px;
+                height: calc(100vh - 100px);
+                background: var(--white);
+                padding: 30px;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            #main-nav.active {
+                right: 0;
+            }
+            
+            #main-nav ul {
+                flex-direction: column;
+            }
+            
+            #main-nav ul li {
+                margin: 15px 0;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .page-hero p {
+                font-size: 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .odd-card {
+                padding: 20px;
+            }
+            
+            .odd-content h3 {
+                font-size: 1.3rem;
+                min-height: auto;
+                margin-bottom: 10px;
+            }
+            
+            .odd-number {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec navigation -->
+    <header id="main-header">
+        <div class="logo-container">
+            <div class="logo-placeholder">
+                <span>AEC</span>
+            </div>
+            <div class="logo-text">
+                <h1>Agricultural Expertise Center</h1>
+                <p>Solutions durables pour l'Afrique</p>
+            </div>
+        </div>
+        
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="axes.html">Axes d'intervention</a></li>
+                <li class="active"><a href="odds.html">ODDs</a></li>
+                <li><a href="#">Formations</a></li>
+                <li><a href="#">Projets</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>ODDs Visés par AEC</h1>
+            <p>Découvrez les Objectifs de Développement Durable que nous soutenons à travers nos actions</p>
+        </div>
+    </section>
+
+    <!-- ODDs Section -->
+    <section id="odds">
+        <div class="container">
+            <div class="section-header">
+                <h2>Objectifs de Développement Durable</h2>
+            </div>
+            
+            <div class="odds-grid">
+                <div class="odd-card">
+                    <span class="odd-number">1</span>
+                    <div class="odd-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="odd-content">
+                        <h3>Éradication de la pauvreté</h3>
+                        <p>Éliminer l'extrême pauvreté sous toutes ses formes et partout dans le monde</p>
+                    </div>
+                </div>
+                
+                <div class="odd-card">
+                    <span class="odd-number">2</span>
+                    <div class="odd-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="odd-content">
+                        <h3>Lutte contre la faim</h3>
+                        <p>Éliminer la faim, assurer la sécurité alimentaire, améliorer la nutrition et promouvoir l'agriculture durable</p>
+                    </div>
+                </div>
+                
+                <div class="odd-card">
+                    <span class="odd-number">6</span>
+                    <div class="odd-icon">
+                        <i class="fas fa-faucet"></i>
+                    </div>
+                    <div class="odd-content">
+                        <h3>Accès à l'eau et à l'assainissement</h3>
+                        <p>Garantir l'accès de tous à l'eau et à l'assainissement et assurer une gestion durable des ressources en eau</p>
+                    </div>
+                </div>
+                
+                <div class="odd-card">
+                    <span class="odd-number">7</span>
+                    <div class="odd-icon">
+                        <i class="fas fa-solar-panel"></i>
+                    </div>
+                    <div class="odd-content">
+                        <h3>Recours aux énergies renouvelables</h3>
+                        <p>Garantir l'accès de tous à des services énergétiques fiables, durables et modernes, à un coût abordable</p>
+                    </div>
+                </div>
+                
+                <div class="odd-card">
+                    <span class="odd-number">8</span>
+                    <div class="odd-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="odd-content">
+                        <h3>Accès à des emplois décents</h3>
+                        <p>Promouvoir une croissance économique soutenue, partagée et durable, le plein emploi productif et un travail décent pour tous</p>
+                    </div>
+                </div>
+                
+                <div class="odd-card">
+                    <span class="odd-number">9</span>
+                    <div class="odd-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div class="odd-content">
+                        <h3>Innovation et infrastructures</h3>
+                        <p>Bâtir une infrastructure résiliente, promouvoir une industrialisation durable qui profite à tous et encourager l'innovation</p>
+                    </div>
+                </div>
+                
+                <div class="odd-card">
+                    <span class="odd-number">10</span>
+                    <div class="odd-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="odd-content">
+                        <h3>Réduction des inégalités</h3>
+                        <p>Réduire les inégalités dans les pays et d'un pays à l'autre</p>
+                    </div>
+                </div>
+                
+                <div class="odd-card">
+                    <span class="odd-number">11</span>
+                    <div class="odd-icon">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <div class="odd-content">
+                        <h3>Villes et communautés durables</h3>
+                        <p>Faire en sorte que les villes et les établissements humains soient ouverts à tous, sûrs, résilients et durables</p>
+                    </div>
+                </div>
+                
+                <div class="odd-card">
+                    <span class="odd-number">12</span>
+                    <div class="odd-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <div class="odd-content">
+                        <h3>Consommation et production responsables</h3>
+                        <p>Établir des modes de consommation et de production durables</p>
+                    </div>
+                </div>
+                
+                <div class="odd-card">
+                    <span class="odd-number">13</span>
+                    <div class="odd-icon">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <div class="odd-content">
+                        <h3>Lutte contre les changements climatiques</h3>
+                        <p>Prendre d'urgence des mesures pour lutter contre les changements climatiques et leurs répercussions</p>
+                    </div>
+                </div>
+                
+                <div class="odd-card">
+                    <span class="odd-number">4</span>
+                    <div class="odd-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="odd-content">
+                        <h3>Accès à une éducation de qualité</h3>
+                        <p>Assurer l'accès de tous à une éducation de qualité, sur un pied d'égalité, et promouvoir les possibilités d'apprentissage tout au long de la vie</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section id="info">
+        <div class="container">
+            <div class="info-content">
+                <h2>Notre engagement pour les ODD</h2>
+                <p>À travers nos programmes et initiatives, AEC contribue activement à la réalisation des Objectifs de Développement Durable des Nations Unies. Notre action ciblée en Afrique vise à créer un impact durable et mesurable sur les communautés que nous servons.</p>
+                <button class="btn-primary">Découvrez nos actions</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-placeholder">
+                            <span>AEC</span>
+                        </div>
+                        <h3>Agricultural Expertise Center</h3>
+                    </div>
+                    <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
+                <div class="footer-extra-links">
+                    <a href="#">Politique de confidentialité</a>
+                    <a href="#">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Initialisation des animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation des éléments au défilement
+            const animateOnScroll = () => {
+                const oddCards = document.querySelectorAll('.odd-card');
+                oddCards.forEach((card, index) => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (cardPosition < screenPosition) {
+                        setTimeout(() => {
+                            card.classList.add('animated');
+                        }, index * 100);
+                    }
+                });
+            };
+            
+            // Initial check on load
+            animateOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Back to top button
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Menu mobile
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mainNav = document.getElementById('main-nav');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+            });
+            
+            // Animation des icônes
+            const oddIcons = document.querySelectorAll('.odd-icon');
+            oddIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', () => {
+                    icon.style.animation = 'pulse 1s, glow 1.5s infinite';
+                });
+                
+                icon.addEventListener('mouseleave', () => {
+                    icon.style.animation = 'float 6s ease-in-out infinite';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

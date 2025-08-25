@@ -134,8 +134,17 @@
             display: flex;
             align-items: center;
         }
+        /* Ajustements pour l'en-tête avec le nouveau logo */
+#main-header {
+    padding: 15px 5%; /* Réduisez le padding si nécessaire */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
         
-        .logo-placeholder {
+       /* .logo-placeholder {
             width: 60px;
             height: 60px;
             background: linear-gradient(135deg, var(--green), var(--orange));
@@ -152,7 +161,7 @@
             font-weight: 800;
             font-size: 1.8rem;
             color: var(--white);
-        }
+        }*/
         
         .logo-text h1 {
             font-size: 1.4rem;
@@ -528,19 +537,43 @@
                 font-size: 1rem;
             }
         }
+
+        
+/* Styles pour le logo personnalisé */
+.logo-custom {
+    width: 180px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-custom img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* Ajustement pour l'espace logo sur mobile */
+@media (max-width: 768px) {
+    .logo-custom {
+        width: 150px;
+        height: 50px;
+    }
+}
     </style>
 </head>
 <body>
     <!-- Header avec navigation -->
     <header id="main-header">
         <div class="logo-container">
-            <div class="logo-placeholder">
-                <span>AEC</span>
-            </div>
-            <div class="logo-text">
-                <h1>Agricultural Expertise Center</h1>
-                <p>Solutions durables pour l'Afrique</p>
-            </div>
+    <div class="logo-custom">
+        <img src="chemin/vers/votre/logo.png" alt="Logo AEC - Agricultural Expertise Center">
+    </div>
+    <!-- Supprimez la section logo-text si votre logo contient déjà le texte -->
+    <div class="logo-text" style="display:none;">
+        <h1>Agricultural Expertise Center</h1>
+        <p>Solutions durables pour l'Afrique</p>
+    </div>
         </div>
         
         <nav id="main-nav">
@@ -648,8 +681,15 @@
             <div class="footer-grid">
                 <div class="footer-about">
                     <div class="footer-logo">
-                        <div class="logo-placeholder">
-                            <span>AEC</span>
+                        <div class="logo-container">
+    <div class="logo-custom">
+        <img src="chemin/vers/votre/logo.png" alt="Logo AEC - Agricultural Expertise Center">
+    </div>
+    <!-- Supprimez la section logo-text si votre logo contient déjà le texte -->
+    <div class="logo-text" style="display:none;">
+        <h1>Agricultural Expertise Center</h1>
+        <p>Solutions durables pour l'Afrique</p>
+    </div>
                         </div>
                         <h3>Agricultural Expertise Center</h3>
                     </div>

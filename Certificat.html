@@ -654,6 +654,161 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Styles pour l'interface admin */
+.admin-panel {
+    display: none;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.admin-panel h3 {
+    color: var(--green);
+    margin-bottom: 20px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-secondary {
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background-color: #d0d0d0;
+}
+
+/* Styles pour le modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: var(--white);
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: var(--dark-gray);
+}
+
+.modal-actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Styles pour les cartes de certification */
+.certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.certification-item {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.certification-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.certification-item h3 {
+    color: var(--green);
+    margin-bottom: 15px;
+}
+
+.certification-item p {
+    color: var(--dark-gray);
+    margin-bottom: 20px;
+}
+
+.cert-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.cert-stat {
+    background: var(--light-gray);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.admin-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.admin-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.btn-edit {
+    background-color: var(--orange);
+    color: white;
+}
+
+.btn-delete {
+    background-color: #ff4d4d;
+    color: white;
+}
     </style>
 </head>
 <body>
@@ -696,10 +851,59 @@
 
     <!-- Certifications Section -->
     <section id="certifications">
-        <div class="container">
-            <div class="section-header">
-                <h2>Nos Programmes de Certification</h2>
-            </div>
+    <div class="container">
+        <div class="section-header">
+            <h2>Nos Programmes de Certification</h2> <br>
+            <button id="admin-toggle" class="btn-primary">Mode Admin</button>
+        </div>
+        
+        <!-- Interface Admin (cachée par défaut) -->
+        <div id="admin-panel" class="admin-panel">
+            <h3>Gestion des Certifications</h3>
+            <form id="certification-form">
+                <input type="hidden" id="certification-id">
+                <div class="form-group">
+                    <label for="cert-title">Titre de la certification</label>
+                    <input type="text" id="cert-title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="cert-description">Description</label>
+                    <textarea id="cert-description" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="cert-stats">Statistiques (séparées par des points-virgules)</label>
+                    <textarea id="cert-stats" class="form-control" placeholder="416 candidatures reçues;31 boursiers complets;40 demi-boursiers"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="cert-modules">Modules (séparés par des points-virgules)</label>
+                    <textarea id="cert-modules" class="form-control" placeholder="Module 1: Introduction;Module 2: Techniques avancées"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Enregistrer</button>
+                    <button type="button" id="cancel-edit" class="btn-secondary">Annuler</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Conteneur des certifications -->
+        <div class="certifications-container" id="certifications-container">
+            <!-- Les certifications seront chargées ici dynamiquement -->
+        </div>
+    </div>
+</section>
+
+<!-- Modal pour afficher les détails d'une certification -->
+<div id="certification-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="modal-content">
+            <!-- Le contenu du modal sera chargé ici dynamiquement -->
+        </div>
+        <div class="modal-actions">
+            <button id="apply-button" class="btn-primary">Postuler à cette certification</button>
+        </div>
+    </div>
+</div>
             
             <div class="certification-card">
                 <div class="certification-header">
@@ -949,6 +1153,247 @@
                 });
             });
         });
+
+        // Données des certifications (seront chargées depuis le localStorage)
+let certifications = JSON.parse(localStorage.getItem('certifications')) || [
+    {
+        id: 1,
+        title: "Certification en Chaînes de Valeurs Agricoles Durables (CVAD)",
+        description: "Programme de formation avancée pour professionnels du secteur agricole en contexte africain",
+        stats: [
+            "416 candidatures reçues",
+            "31 boursiers complets",
+            "40 demi-boursiers",
+            "16 pays représentés"
+        ],
+        modules: [
+            "La certification CVAD est constituée de 08 modules spécialisés",
+            "Chaque module durant 03 jours",
+            "Le cours se fait en ligne sur notre plateforme d'e-learning CANVAS",
+            "Séance d'échange entre formateurs et participants à la fin de chaque module"
+        ]
+    },
+    {
+        id: 2,
+        title: "Certification en Gestion de Projets Agricoles",
+        description: "Formation complète pour la gestion efficace de projets dans le secteur agricole",
+        stats: [
+            "250 candidatures reçues",
+            "25 boursiers complets",
+            "30 demi-boursiers",
+            "12 pays représentés"
+        ],
+        modules: [
+            "Programme de 06 modules intensifs",
+            "Formation en ligne avec sessions pratiques",
+            "Accompagnement personnalisé par des experts",
+            "Certification reconnue internationalement"
+        ]
+    }
+];
+
+// Éléments DOM
+const certificationsContainer = document.getElementById('certifications-container');
+const certificationModal = document.getElementById('certification-modal');
+const modalContent = document.getElementById('modal-content');
+const applyButton = document.getElementById('apply-button');
+const closeModal = document.querySelector('.close-modal');
+const adminPanel = document.getElementById('admin-panel');
+const adminToggle = document.getElementById('admin-toggle');
+const certificationForm = document.getElementById('certification-form');
+const cancelEdit = document.getElementById('cancel-edit');
+
+// Fonctions pour gérer les certifications
+function renderCertifications() {
+    certificationsContainer.innerHTML = '';
+    
+    const grid = document.createElement('div');
+    grid.className = 'certifications-grid';
+    
+    certifications.forEach(cert => {
+        const card = document.createElement('div');
+        card.className = 'certification-item';
+        card.dataset.id = cert.id;
+        
+        card.innerHTML = `
+            <h3>${cert.title}</h3>
+            <p>${cert.description}</p>
+            <div class="cert-stats">
+                ${cert.stats.map(stat => <span class="cert-stat">${stat}</span>).join('')}
+            </div>
+            ${adminPanel.style.display === 'block' ? `
+            <div class="admin-actions">
+                <button class="admin-btn btn-edit" data-id="${cert.id}">Modifier</button>
+                <button class="admin-btn btn-delete" data-id="${cert.id}">Supprimer</button>
+            </div>
+            ` : ''}
+        `;
+        
+        card.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('admin-btn')) {
+                openCertificationModal(cert.id);
+            }
+        });
+        
+        grid.appendChild(card);
+    });
+    
+    certificationsContainer.appendChild(grid);
+    
+    // Ajouter les écouteurs d'événements pour les boutons admin
+    if (adminPanel.style.display === 'block') {
+        document.querySelectorAll('.btn-edit').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                editCertification(parseInt(btn.dataset.id));
+            });
+        });
+        
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                deleteCertification(parseInt(btn.dataset.id));
+            });
+        });
+    }
+}
+
+function openCertificationModal(id) {
+    const certification = certifications.find(c => c.id === id);
+    if (!certification) return;
+    
+    modalContent.innerHTML = `
+        <h2>${certification.title}</h2>
+        <p class="modal-description">${certification.description}</p>
+        
+        <div class="modal-stats">
+            <h3>Statistiques</h3>
+            <ul>
+                ${certification.stats.map(stat => <li>${stat}</li>).join('')}
+            </ul>
+        </div>
+        
+        <div class="modal-modules">
+            <h3>Modalités de formation</h3>
+            <ul>
+                ${certification.modules.map(module => <li>${module}</li>).join('')}
+            </ul>
+        </div>
+    `;
+    
+    applyButton.onclick = () => {
+        alert(Postulation pour ${certification.title});
+        // Rediriger vers un formulaire de postulation
+    };
+    
+    certificationModal.style.display = 'block';
+}
+
+function closeCertificationModal() {
+    certificationModal.style.display = 'none';
+}
+
+// Fonctions pour l'interface admin
+function toggleAdminPanel() {
+    if (adminPanel.style.display === 'block') {
+        adminPanel.style.display = 'none';
+        adminToggle.textContent = 'Mode Admin';
+    } else {
+        // Demander un mot de passe simple (pour la démo)
+        const password = prompt('Entrez le mot de passe admin:');
+        if (password === 'admin123') { // Mot de passe simple pour la démo
+            adminPanel.style.display = 'block';
+            adminToggle.textContent = 'Mode Normal';
+        }
+    }
+    renderCertifications();
+}
+
+function editCertification(id) {
+    const certification = certifications.find(c => c.id === id);
+    if (!certification) return;
+    
+    document.getElementById('certification-id').value = certification.id;
+    document.getElementById('cert-title').value = certification.title;
+    document.getElementById('cert-description').value = certification.description;
+    document.getElementById('cert-stats').value = certification.stats.join(';');
+    document.getElementById('cert-modules').value = certification.modules.join(';');
+}
+
+function deleteCertification(id) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette certification ?')) {
+        certifications = certifications.filter(c => c.id !== id);
+        saveCertifications();
+        renderCertifications();
+    }
+}
+
+function saveCertification(e) {
+    e.preventDefault();
+    
+    const id = document.getElementById('certification-id').value;
+    const title = document.getElementById('cert-title').value;
+    const description = document.getElementById('cert-description').value;
+    const stats = document.getElementById('cert-stats').value.split(';').filter(s => s.trim() !== '');
+    const modules = document.getElementById('cert-modules').value.split(';').filter(m => m.trim() !== '');
+    
+    if (id) {
+        // Modification
+        const index = certifications.findIndex(c => c.id === parseInt(id));
+        if (index !== -1) {
+            certifications[index] = {
+                ...certifications[index],
+                title,
+                description,
+                stats,
+                modules
+            };
+        }
+    } else {
+        // Nouvelle certification
+        const newId = certifications.length > 0 ? Math.max(...certifications.map(c => c.id)) + 1 : 1;
+        certifications.push({
+            id: newId,
+            title,
+            description,
+            stats,
+            modules
+        });
+    }
+    
+    saveCertifications();
+    certificationForm.reset();
+    document.getElementById('certification-id').value = '';
+    renderCertifications();
+}
+
+function cancelEditForm() {
+    certificationForm.reset();
+    document.getElementById('certification-id').value = '';
+}
+
+function saveCertifications() {
+    localStorage.setItem('certifications', JSON.stringify(certifications));
+}
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    renderCertifications();
+    
+    // Événements
+    adminToggle.addEventListener('click', toggleAdminPanel);
+    closeModal.addEventListener('click', closeCertificationModal);
+    certificationForm.addEventListener('submit', saveCertification);
+    cancelEdit.addEventListener('click', cancelEditForm);
+    
+    // Fermer le modal en cliquant à l'extérieur
+    window.addEventListener('click', (e) => {
+        if (e.target === certificationModal) {
+            closeCertificationModal();
+        }
+    });
+});
+
     </script>
 </body>
 </html>

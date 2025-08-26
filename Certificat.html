@@ -746,9 +746,9 @@
             margin: 5% auto;
             padding: 30px;
             border-radius: 15px;
-            width: 80%;
-            max-width: 800px;
-            max-height: 80vh;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
             overflow-y: auto;
             position: relative;
             animation: modalFadeIn 0.3s;
@@ -898,6 +898,63 @@
             color: var(--green);
             margin-bottom: 30px;
         }
+
+        /* Styles pour l'affichage détaillé des certifications */
+        .modal-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .modal-section {
+            margin-bottom: 25px;
+        }
+
+        .modal-section h3 {
+            color: var(--green);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--orange);
+        }
+
+        .modal-detail-item {
+            margin-bottom: 15px;
+        }
+
+        .modal-detail-label {
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+        }
+
+        .modal-detail-value {
+            color: #555;
+        }
+
+        .detail-list {
+            list-style-type: none;
+        }
+
+        .detail-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .detail-list li:before {
+            content: "•";
+            color: var(--orange);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .modal-details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -911,12 +968,12 @@
         
         <nav id="main-nav">
             <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="Axes.html">Axes d'intervention</a></li>
+                <li><a href="index.html">ACCEUIL</a></li>
+                <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
                 <li><a href="ODD.html">ODDs</a></li>
-                <li class="active"><a href="Certificat.html">Certifications</a></li>
-                <li><a href="#">Projets</a></li>
-                <li><a href="Contact.html">Contact</a></li>
+                <li class="active"><a href="Certificat.html">CERTIFICATIONS</a></li>
+                <!--<li><a href="#">Projets</a></li>-->
+                <li><a href="Contact.html">CONTACT</a></li>
             </ul>
         </nav>
         
@@ -978,6 +1035,51 @@
                         <textarea id="cert-modules" class="form-control" placeholder="Module 1: Introduction;Module 2: Techniques avancées"></textarea>
                     </div>
                     
+                    <div class="form-group">
+                        <label for="cert-inscription">Modalités d'inscription</label>
+                        <textarea id="cert-inscription" class="form-control" placeholder="Processus d'inscription détaillé..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cert-date-limite">Date limite d'inscription</label>
+                        <input type="date" id="cert-date-limite" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cert-date-debut">Date de début de formation</label>
+                        <input type="date" id="cert-date-debut" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cert-public">Public cible</label>
+                        <textarea id="cert-public" class="form-control" placeholder="Professionnels du secteur agricole, étudiants..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cert-methodologie">Méthodologie</label>
+                        <textarea id="cert-methodologie" class="form-control" placeholder="Formation en ligne, présentiel, hybrid..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cert-cout">Coût de la formation</label>
+                        <input type="text" id="cert-cout" class="form-control" placeholder="500 000 FCFA ou Gratuit">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cert-duree">Durée de la formation</label>
+                        <input type="text" id="cert-duree" class="form-control" placeholder="3 mois, 120 heures">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cert-prerequis">Prérequis</label>
+                        <textarea id="cert-prerequis" class="form-control" placeholder="Diplôme de niveau Bac+2, expérience professionnelle..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cert-debouchés">Débouchés</label>
+                        <textarea id="cert-debouchés" class="form-control" placeholder="Métiers et opportunités après la certification..."></textarea>
+                    </div>
+                    
                     <div class="form-actions">
                         <button type="submit" class="btn-primary">Enregistrer</button>
                         <button type="button" id="cancel-edit" class="btn-secondary">Annuler</button>
@@ -1010,7 +1112,7 @@
     <section id="other-certifications">
         <div class="container">
             <div class="section-header">
-                <h2>Autres Programmes de Formation</h2>
+                <h2 style="color: white;">Autres Programmes de Formation</h2>
             </div>
             
             <div class="other-certs-grid">
@@ -1101,7 +1203,16 @@
                     "Chaque module durant 03 jours",
                     "Le cours se fait en ligne sur notre plateforme d'e-learning CANVAS",
                     "Séance d'échange entre formateurs et participants à la fin de chaque module"
-                ]
+                ],
+                inscription: "Pour postuler, veuillez soumettre votre CV, une lettre de motivation et les copies de vos diplômes via notre plateforme en ligne. Les candidats présélectionnés seront convoqués pour un entretien.",
+                dateLimite: "2025-10-15",
+                dateDebut: "2025-11-05",
+                publicCible: "Professionnels du secteur agricole, porteurs de projets agricoles, étudiants en agronomie, entrepreneurs agricoles",
+                methodologie: "Formation hybride combinant sessions en ligne asynchrones, webinaires interactifs et ateliers pratiques en présentiel. Accès à une plateforme d'e-learning avec ressources pédagogiques diversifiées.",
+                cout: "250 000 FCFA pour l'ensemble de la formation. Des bourses partielles et complètes sont disponibles sur critères sociaux et académiques.",
+                duree: "4 mois, 120 heures de formation",
+                prerequis: "Diplôme de niveau Bac+2 en agronomie ou domaine connexe, ou au moins 3 ans d'expérience professionnelle dans le secteur agricole. Maîtrise du français indispensable.",
+                debouches: "Chef de projet agricole, Consultant en chaînes de valeurs, Responsable de coopérative agricole, Entrepreneur agroalimentaire, Chargé de développement rural"
             },
             {
                 id: 2,
@@ -1119,7 +1230,16 @@
                     "Formation en ligne avec sessions pratiques",
                     "Accompagnement personnalisé par des experts",
                     "Certification reconnue internationalement"
-                ]
+                ],
+                inscription: "Dépôt de candidature en ligne avec pièces justificatives. Processus de sélection en deux phases: étude du dossier et entretien motivationnel.",
+                dateLimite: "2025-09-30",
+                dateDebut: "2025-10-20",
+                publicCible: "Gestionnaires de projets agricoles, responsables de coopératives, cadres d'ONG agricoles, consultants en développement rural",
+                methodologie: "Apprentissage par projets, études de cas réels, mentoring individualisé. 70% de pratique et 30% de théorie. Évaluation continue sur la base de travaux pratiques.",
+                cout: "300 000 FCFA. Possibilité de paiement échelonné. Programme de bourses selon mérite et besoins.",
+                duree: "3 mois, 90 heures de formation intensive",
+                prerequis: "Expérience préalable en gestion de projet, niveau Bac+3 ou équivalent. Connaissances de base en agriculture requises.",
+                debouches: "Gestionnaire de projets agricoles, Coordinateur de programmes de développement, Consultant en gestion de projets, Chargé de suivi-évaluation"
             }
         ];
 
@@ -1152,6 +1272,10 @@
                     <p>${cert.description}</p>
                     <div class="cert-stats">
                         ${cert.stats.map(stat => `<span class="cert-stat">${stat}</span>`).join('')}
+                    </div>
+                    <div class="cert-dates" style="margin-top: 15px;">
+                        <div><strong>Date limite:</strong> ${formatDate(cert.dateLimite)}</div>
+                        <div><strong>Début:</strong> ${formatDate(cert.dateDebut)}</div>
                     </div>
                     ${adminPanel.style.display === 'block' ? `
                     <div class="admin-actions">
@@ -1188,6 +1312,16 @@
             }
         }
 
+        function formatDate(dateString) {
+            if (!dateString) return "Non spécifiée";
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        }
+
         function openCertificationModal(id) {
             const certification = certifications.find(c => c.id === id);
             if (!certification) return;
@@ -1197,16 +1331,63 @@
                 ${certification.image ? `<img src="${certification.image}" alt="${certification.title}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">` : ''}
                 <p class="modal-description">${certification.description}</p>
                 
-                <div class="modal-stats">
+                <div class="modal-details-grid">
+                    <div class="modal-section">
+                        <h3>Informations générales</h3>
+                        <div class="modal-detail-item">
+                            <div class="modal-detail-label">Date limite d'inscription</div>
+                            <div class="modal-detail-value">${formatDate(certification.dateLimite)}</div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <div class="modal-detail-label">Début de la formation</div>
+                            <div class="modal-detail-value">${formatDate(certification.dateDebut)}</div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <div class="modal-detail-label">Durée</div>
+                            <div class="modal-detail-value">${certification.duree || "Non spécifiée"}</div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <div class="modal-detail-label">Coût</div>
+                            <div class="modal-detail-value">${certification.cout || "Non spécifié"}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Public cible</h3>
+                        <div class="modal-detail-value">${certification.publicCible || "Non spécifié"}</div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Prérequis</h3>
+                        <div class="modal-detail-value">${certification.prerequis || "Aucun prérequis spécifique"}</div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Modalités d'inscription</h3>
+                        <div class="modal-detail-value">${certification.inscription || "Non spécifiées"}</div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Méthodologie</h3>
+                        <div class="modal-detail-value">${certification.methodologie || "Non spécifiée"}</div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Débouchés</h3>
+                        <div class="modal-detail-value">${certification.debouches || "Non spécifiés"}</div>
+                    </div>
+                </div>
+                
+                <div class="modal-section">
                     <h3>Statistiques</h3>
-                    <ul>
+                    <ul class="detail-list">
                         ${certification.stats.map(stat => `<li>${stat}</li>`).join('')}
                     </ul>
                 </div>
                 
-                <div class="modal-modules">
-                    <h3>Modalités de formation</h3>
-                    <ul>
+                <div class="modal-section">
+                    <h3>Modules de formation</h3>
+                    <ul class="detail-list">
                         ${certification.modules.map(module => `<li>${module}</li>`).join('')}
                     </ul>
                 </div>
@@ -1249,6 +1430,15 @@
             document.getElementById('cert-description').value = certification.description;
             document.getElementById('cert-stats').value = certification.stats.join(';');
             document.getElementById('cert-modules').value = certification.modules.join(';');
+            document.getElementById('cert-inscription').value = certification.inscription || '';
+            document.getElementById('cert-date-limite').value = certification.dateLimite || '';
+            document.getElementById('cert-date-debut').value = certification.dateDebut || '';
+            document.getElementById('cert-public').value = certification.publicCible || '';
+            document.getElementById('cert-methodologie').value = certification.methodologie || '';
+            document.getElementById('cert-cout').value = certification.cout || '';
+            document.getElementById('cert-duree').value = certification.duree || '';
+            document.getElementById('cert-prerequis').value = certification.prerequis || '';
+            document.getElementById('cert-debouchés').value = certification.debouches || '';
             
             // Afficher l'image si elle existe
             if (certification.image) {
@@ -1279,6 +1469,15 @@
             const description = document.getElementById('cert-description').value;
             const stats = document.getElementById('cert-stats').value.split(';').filter(s => s.trim() !== '');
             const modules = document.getElementById('cert-modules').value.split(';').filter(m => m.trim() !== '');
+            const inscription = document.getElementById('cert-inscription').value;
+            const dateLimite = document.getElementById('cert-date-limite').value;
+            const dateDebut = document.getElementById('cert-date-debut').value;
+            const publicCible = document.getElementById('cert-public').value;
+            const methodologie = document.getElementById('cert-methodologie').value;
+            const cout = document.getElementById('cert-cout').value;
+            const duree = document.getElementById('cert-duree').value;
+            const prerequis = document.getElementById('cert-prerequis').value;
+            const debouches = document.getElementById('cert-debouchés').value;
             
             // Gérer l'image
             let image = null;
@@ -1286,7 +1485,7 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     image = e.target.result;
-                    completeSave(id, title, description, stats, modules, image);
+                    completeSave(id, title, description, stats, modules, inscription, dateLimite, dateDebut, publicCible, methodologie, cout, duree, prerequis, debouches, image);
                 };
                 reader.readAsDataURL(imageInput.files[0]);
             } else {
@@ -1295,11 +1494,11 @@
                     const existingCert = certifications.find(c => c.id === parseInt(id));
                     image = existingCert ? existingCert.image : null;
                 }
-                completeSave(id, title, description, stats, modules, image);
+                completeSave(id, title, description, stats, modules, inscription, dateLimite, dateDebut, publicCible, methodologie, cout, duree, prerequis, debouches, image);
             }
         }
 
-        function completeSave(id, title, description, stats, modules, image) {
+        function completeSave(id, title, description, stats, modules, inscription, dateLimite, dateDebut, publicCible, methodologie, cout, duree, prerequis, debouches, image) {
             if (id) {
                 // Modification
                 const index = certifications.findIndex(c => c.id === parseInt(id));
@@ -1310,7 +1509,16 @@
                         description,
                         image,
                         stats,
-                        modules
+                        modules,
+                        inscription,
+                        dateLimite,
+                        dateDebut,
+                        publicCible,
+                        methodologie,
+                        cout,
+                        duree,
+                        prerequis,
+                        debouches
                     };
                 }
             } else {
@@ -1322,7 +1530,16 @@
                     description,
                     image,
                     stats,
-                    modules
+                    modules,
+                    inscription,
+                    dateLimite,
+                    dateDebut,
+                    publicCible,
+                    methodologie,
+                    cout,
+                    duree,
+                    prerequis,
+                    debouches
                 });
             }
             

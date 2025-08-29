@@ -300,7 +300,7 @@
         }
         
         #main-nav ul li {
-            margin: 0 10px;
+            margin: 0 15px;
             position: relative;
         }
         
@@ -579,7 +579,7 @@
         
         .domaines-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
             gap: 35px;
             max-width: 1200px;
             margin: 0 auto;
@@ -606,8 +606,8 @@
         }
         
         .card-icon {
-            width: 90px;
-            height: 90px;
+            width: 300px;
+            height: 300px;
             background: linear-gradient(135deg, var(--green), var(--orange));
             border-radius: 50%;
             display: flex;
@@ -660,6 +660,12 @@
             transform: translateX(0);
             height: 100%;
             transition: transform 0.5s ease, height 0.3s 0.5s ease;
+        }
+        .card-icon img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
         }
         
         /* Histoire Section */
@@ -1461,7 +1467,7 @@
         <div class="domaines-grid">
             <div class="domaine-card">
                 <div class="card-icon">
-                    <i class="fas fa-leaf"></i>
+                    <img src="./IMAGES/1.jpg" alt="">
                 </div>
                 <h3>Agriculture et Entrepreneuriat agricole durable</h3>
                 <p>Promotion de méthodes agricoles respectueuses de l'environnement et création d'entreprises viables.</p>
@@ -1470,7 +1476,7 @@
             
             <div class="domaine-card">
                 <div class="card-icon">
-                    <i class="fas fa-apple-alt"></i>
+                    <img src="./IMAGES/2.jpg" alt="">
                 </div>
                 <h3>Sécurité alimentaire et Nutrition</h3>
                 <p>Amélioration de l'accès à une alimentation saine et équilibrée pour les communautés vulnérables.</p>
@@ -1479,7 +1485,7 @@
             
             <div class="domaine-card">
                 <div class="card-icon">
-                    <i class="fas fa-cloud-sun"></i>
+                  <img src="./IMAGES/3.jpg" alt="">
                 </div>
                 <h3>Environnement et Changement climatique</h3>
                 <p>Lutte contre les effets du changement climatique et promotion des énergies renouvelables.</p>
@@ -1488,7 +1494,7 @@
             
             <div class="domaine-card">
                 <div class="card-icon">
-                    <i class="fas fa-graduation-cap"></i>
+                     <img src="./IMAGES/8.jpg" alt="">
                 </div>
                 <h3>Formations et Renforcement de capacités</h3>
                 <p>Programmes de certification et développement des compétences pour les professionnels.</p>
@@ -1497,7 +1503,7 @@
             
             <div class="domaine-card">
                 <div class="card-icon">
-                    <i class="fas fa-laptop"></i>
+                     <img src="./IMAGES/9.jpg" alt="">
                 </div>
                 <h3>TICs dans l'agriculture</h3>
                 <p>Intégration des technologies innovantes pour moderniser les pratiques agricoles.</p>

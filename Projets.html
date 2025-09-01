@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets - AEC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables et reset */
+        :root {
+            --green: #228B22;
+            --orange: #FF8C00;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333333;
+            --white: #FFFFFF;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Styles pour le logo personnalisé */
+        .logo-custom {
+            width: 250px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-custom img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        /* Ajustement pour l'espace logo sur mobile */
+        @media (max-width: 992px) {
+            .logo-custom {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-custom {
+                width: 180px;
+                height: 50px;
+            }
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding-top: 80px; /* Pour compenser le header fixe */
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+        
+        /* Styles généraux */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Header Styles */
+        #main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        #main-header.scrolled {
+            padding: 10px 5%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        #main-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        #main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        #main-nav ul li {
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        #main-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 700;
+            position: relative;
+            padding: 8px 0;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+        
+        #main-nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--orange);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+        
+        #main-nav ul li a:hover:after,
+        #main-nav ul li.active a:after {
+            width: 100%;
+        }
+        
+        #main-nav ul li a:hover {
+            color: var(--orange);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--green);
+            transition: var(--transition);
+        }
+        
+        .mobile-menu-btn:hover {
+            color: var(--orange);
+        }
+        
+        /* Mobile menu */
+        #mobile-nav {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--white);
+            overflow: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        #mobile-nav.active {
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+        
+        #mobile-nav ul {
+            list-style: none;
+            padding: 30px 5%;
+        }
+        
+        #mobile-nav ul li {
+            margin: 20px 0;
+        }
+        
+        #mobile-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            display: block;
+            padding: 10px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        #mobile-nav ul li a:hover {
+            color: var(--orange);
+            padding-left: 15px;
+        }
+        
+        /* Hero Section */
+        .page-hero {
+            padding: 140px 5% 60px;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1467226632440-65f0b4957563?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .page-hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Projets Section */
+        #projets {
+            padding: 80px 5%;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--green);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: var(--orange);
+            border-radius: 3px;
+        }
+        
+        .projets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .projet-item {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .projet-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .projet-item h3 {
+            font-size: 1.4rem;
+            color: var(--green);
+            margin-bottom: 15px;
+        }
+        
+        .projet-item p {
+            color: var(--dark-gray);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .projet-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .projet-stat {
+            background: var(--light-gray);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .projet-dates {
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .projet-dates div {
+            margin-bottom: 5px;
+        }
+        
+        .projet-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .status-en-cours {
+            background-color: #e6f7ff;
+            color: #1890ff;
+        }
+        
+        .status-termine {
+            background-color: #f6ffed;
+            color: #52c41a;
+        }
+        
+        .status-a-venir {
+            background-color: #fff7e6;
+            color: #fa8c16;
+        }
+        
+        .admin-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .admin-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .btn-edit {
+            background-color: var(--orange);
+            color: white;
+        }
+        
+        .btn-edit:hover {
+            background-color: #e67e00;
+        }
+        
+        .btn-delete {
+            background-color: #ff4d4d;
+            color: white;
+        }
+        
+        .btn-delete:hover {
+            background-color: #ff3333;
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .admin-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--light-gray);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--green);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        select.form-control {
+            height: 48px;
+        }
+        
+        .form-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d0d0d0;
+        }
+        
+        .btn-danger {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn-danger:hover {
+            background-color: #ff3333;
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed var(--light-gray);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-preview-placeholder {
+            color: #aaa;
+            text-align: center;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            cursor: pointer;
+        }
+        
+        .close-modal:hover {
+            color: var(--dark-gray);
+        }
+        
+        .modal-actions {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .modal-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .modal-section {
+            margin-bottom: 25px;
+        }
+        
+        .modal-section h3 {
+            color: var(--green);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--orange);
+        }
+        
+        .modal-detail-item {
+            margin-bottom: 15px;
+        }
+        
+        .modal-detail-label {
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+        }
+        
+        .modal-detail-value {
+            color: #555;
+        }
+        
+        .detail-list {
+            list-style-type: none;
+        }
+        
+        .detail-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .detail-list li:before {
+            content: "•";
+            color: var(--orange);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Stats Section */
+        #stats {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, var(--orange) 0%, #e67e00 100%);
+            color: var(--white);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .stat-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+        }
+        
+        /* CTA Section */
+        #cta {
+            padding: 80px 5%;
+            text-align: center;
+        }
+        
+        #cta h2 {
+            font-size: 2.2rem;
+            color: var(--green);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        #cta p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            text-align: center;
+        }
+        
+        /* Footer */
+        #main-footer {
+            background: linear-gradient(135deg, var(--dark-gray), #222);
+            color: var(--white);
+            padding: 70px 5% 30px;
+            position: relative;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-about p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--orange);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links h4,
+        .footer-contact h4,
+        .footer-newsletter h4 {
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links h4:after,
+        .footer-contact h4:after,
+        .footer-newsletter h4:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--orange);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--orange);
+            padding-left: 5px;
+        }
+        
+        .footer-contact ul {
+            list-style: none;
+        }
+        
+        .footer-contact ul li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-contact ul li i {
+            color: var(--orange);
+            margin-right: 15px;
+            min-width: 20px;
+            margin-top: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-newsletter p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .footer-newsletter form {
+            display: flex;
+        }
+        
+        .footer-newsletter input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .footer-newsletter button {
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .footer-newsletter button:hover {
+            background: var(--green);
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .footer-extra-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-extra-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-extra-links a:hover {
+            color: var(--orange);
+        }
+        
+        /* Back to top */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #back-to-top:hover {
+            background: var(--green);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .admin-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            #main-nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero {
+                padding: 120px 5% 50px;
+            }
+            
+            .page-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .page-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .projet-item {
+                padding: 20px;
+            }
+            
+            .projet-item h3 {
+                font-size: 1.3rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .footer-extra-links {
+                justify-content: center;
+            }
+            
+            .footer-newsletter form {
+                flex-direction: column;
+            }
+            
+            .footer-newsletter input {
+                border-radius: 50px;
+                margin-bottom: 10px;
+            }
+            
+            .footer-newsletter button {
+                border-radius: 50px;
+                padding: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .page-hero p {
+                font-size: 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.6rem;
+            }
+            
+            .projet-item h3 {
+                font-size: 1.2rem;
+            }
+            
+            #cta h2 {
+                font-size: 1.8rem;
+            }
+            
+            .admin-actions {
+                flex-direction: column;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+
+        .no-data {
+            text-align: center;
+            color: var(--dark-gray);
+            font-size: 1.2rem;
+            padding: 40px;
+            grid-column: 1 / -1;
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background: var(--light-gray);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--orange);
+            color: var(--white);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec navigation -->
+    <header id="main-header">
+        <div class="logo-container">
+            <div class="logo-custom">
+                <img src="logo.png" alt="Logo AEC - Agricultural Expertise Center">
+            </div>
+        </div>
+        
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">ACCUEIL</a></li>
+                <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
+                <li><a href="ODD.html">ODDs VISES</a></li>
+                <li><a href="Certificat.html">CERTIFICATIONS</a></li>
+                <li class="active"><a href="Projets.html">PROJETS</a></li>
+                <li><a href="Contact.html">CONTACT</a></li>
+                <li><a href="Partenaires.html">PARTENAIRES</a></li>
+                <li><a href="Galerie.html">GALERIE</a></li>
+                <li><a href="Blog.html">BLOG</a></li>
+            </ul>
+        </nav>
+        
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Mobile navigation -->
+    <nav id="mobile-nav">
+        <ul>
+            <li><a href="index.html">ACCUEIL</a></li>
+            <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
+            <li><a href="ODD.html">ODDs VISES</a></li>
+            <li><a href="Certificat.html">CERTIFICATIONS</a></li>
+            <li class="active"><a href="Projets.html">PROJETS</a></li>
+            <li><a href="Contact.html">CONTACT</a></li>
+            <li><a href="Partenaires.html">PARTENAIRES</a></li>
+            <li><a href="Galerie.html">GALERIE</a></li>
+            <li><a href="Blog.html">BLOG</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Nos Projets</h1>
+            <p>Découvrez les initiatives et projets que nous menons pour transformer l'agriculture africaine</p>
+        </div>
+    </section>
+
+    <!-- Projets Section -->
+    <section id="projets">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nos Projets en Cours et Réalisés</h2>
+                <button id="admin-toggle" class="btn-primary">Mode Admin</button>
+            </div>
+            
+            <!-- Filtres -->
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">Tous les projets</button>
+                <button class="filter-btn" data-filter="en_cours">En cours</button>
+                <button class="filter-btn" data-filter="termine">Terminés</button>
+                <button class="filter-btn" data-filter="a_venir">À venir</button>
+            </div>
+            
+            <!-- Interface Admin (cachée par défaut) -->
+            <div id="admin-panel" class="admin-panel">
+                <h3>Gestion des Projets</h3>
+                <form id="projet-form" class="admin-form" enctype="multipart/form-data">
+                    <input type="hidden" id="projet-id" name="id">
+                    
+                    <div class="form-group full-width">
+                        <label for="projet-image">Image du projet</label>
+                        <div class="image-preview" id="image-preview">
+                            <div class="image-preview-placeholder">
+                                <i class="fas fa-image" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                                <p>Aperçu de l'image</p>
+                            </div>
+                        </div>
+                        <input type="file" id="projet-image" name="image" accept="image/*" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projet-titre">Titre du projet</label>
+                        <input type="text" id="projet-titre" name="titre" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projet-description">Description</label>
+                        <textarea id="projet-description" name="description" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projet-statut">Statut</label>
+                        <select id="projet-statut" name="statut" class="form-control" required>
+                            <option value="en_cours">En cours</option>
+                            <option value="termine">Terminé</option>
+                            <option value="a_venir">À venir</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projet-date-debut">Date de début</label>
+                        <input type="date" id="projet-date-debut" name="date_debut" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projet-date-fin">Date de fin</label>
+                        <input type="date" id="projet-date-fin" name="date_fin" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projet-localisation">Localisation</label>
+                        <input type="text" id="projet-localisation" name="localisation" class="form-control" placeholder="Région, pays...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projet-budget">Budget</label>
+                        <input type="text" id="projet-budget" name="budget" class="form-control" placeholder="Montant en FCFA ou USD">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projet-objectifs">Objectifs (séparés par des points-virgules)</label>
+                        <textarea id="projet-objectifs" name="objectifs" class="form-control" placeholder="Objectif 1; Objectif 2; Objectif 3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projet-resultats">Résultats (séparés par des points-virgules)</label>
+                        <textarea id="projet-resultats" name="resultats" class="form-control" placeholder="Résultat 1; Résultat 2; Résultat 3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projet-partenaires">Partenaires (séparés par des points-virgules)</label>
+                        <textarea id="projet-partenaires" name="partenaires" class="form-control" placeholder="Partenaire 1; Partenaire 2; Partenaire 3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projet-beneficiaires">Bénéficiaires</label>
+                        <textarea id="projet-beneficiaires" name="beneficiaires" class="form-control" placeholder="Description des bénéficiaires du projet"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Enregistrer</button>
+                        <button type="button" id="cancel-edit" class="btn-secondary">Annuler</button>
+                        <button type="button" id="clear-form" class="btn-danger">Nouveau</button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Conteneur des projets -->
+            <div class="projets-grid" id="projets-container">
+                <!-- Les projets seront chargés ici dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-number" id="projets-count">25</div>
+                    <h3>Projets réalisés</h3>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number" id="beneficiaires-count">12,500</div>
+                    <h3>Bénéficiaires</h3>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="stat-number" id="pays-count">8</div>
+                    <h3>Pays d'intervention</h3>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="stat-number" id="partenaires-count">15</div>
+                    <h3>Partenaires</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal pour afficher les détails d'un projet -->
+    <div id="projet-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-content">
+                <!-- Le contenu du modal sera chargé ici dynamiquement -->
+            </div>
+            <div class="modal-actions">
+                <button id="support-button" class="btn-primary">Soutenir ce projet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <section id="cta">
+        <div class="container">
+            <h2>Vous souhaitez nous soutenir?</h2>
+            <p>Nos projets transforment la vie des communautés agricoles en Afrique. Rejoignez-nous dans notre mission pour une agriculture durable et résiliente.</p>
+            <button class="btn-primary">Devenir partenaire</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <div class="logo-container">
+                        <div class="logo-custom">
+                            <img src="logo.png" alt="Logo AEC - Agricultural Expertise Center">
+                        </div>
+                    </div>
+                    <h3>Agricultural Expertise Center</h3>
+                </div>
+                <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Liens rapides</h4>
+                <ul>
+                    <li><a href="index.html">ACCUEIL</a></li>
+                    <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
+                    <li><a href="ODD.html">ODDs VISES</a></li>
+                    <li><a href="Certificat.html">CERTIFICATIONS</a></li>
+                    <li><a href="Projets.html">PROJETS</a></li>
+                    <li><a href="Contact.html">CONTACTS</a></li>
+                    <li><a href="Partenaires.html">PARTENAIRES</a></li>
+                    <li><a href="Galerie.html">GALERIE</a></li>
+                    <li><a href="Blog.html">CIFAD BLOG</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Contactez-nous</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Zongo II, Parakou, BENIN</li>
+                    <li><i class="fas fa-phone"></i> (+229) 0196886696 / 0166843095</li>
+                    <li><i class="fas fa-envelope"></i> contact@aec-afrique.org</li>
+                    <li><i class="fas fa-envelope"></i> aecenter@outlook.fr</li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h4>Restez informés</h4>
+                <p>Inscrivez-vous pour recevoir nos actualités</p>
+                <form>
+                    <input type="email" placeholder="Votre email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
+            <div class="footer-extra-links">
+                <a href="#">Politique de confidentialité</a>
+                <a href="#">Mentions légales</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Configuration
+        const API_URL = 'projet_api.php';
+
+        // Données des projets (seront chargées depuis l'API)
+        let projets = [];
+
+        // Éléments DOM
+        const projetsContainer = document.getElementById('projets-container');
+        const projetModal = document.getElementById('projet-modal');
+        const modalContent = document.getElementById('modal-content');
+        const supportButton = document.getElementById('support-button');
+        const closeModal = document.querySelector('.close-modal');
+        const adminPanel = document.getElementById('admin-panel');
+        const adminToggle = document.getElementById('admin-toggle');
+        const projetForm = document.getElementById('projet-form');
+        const cancelEdit = document.getElementById('cancel-edit');
+        const clearForm = document.getElementById('clear-form');
+        const imageInput = document.getElementById('projet-image');
+        const imagePreview = document.getElementById('image-preview');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        // Fonctions pour gérer les projets
+        async function loadProjets() {
+            try {
+                const response = await fetch(`${API_URL}?action=get_projets`);
+                if (!response.ok) throw new Error('Erreur lors du chargement des projets');
+                
+                const result = await response.json();
+                if (result.success) {
+                    projets = result.data;
+                    renderProjets();
+                    updateStats();
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                projetsContainer.innerHTML = '<p class="no-data">Impossible de charger les projets. Veuillez réessayer.</p>';
+            }
+        }
+
+        function renderProjets(filter = 'all') {
+            projetsContainer.innerHTML = '';
+            
+            let filteredProjets = projets;
+            if (filter !== 'all') {
+                filteredProjets = projets.filter(projet => projet.statut === filter);
+            }
+            
+            if (filteredProjets.length === 0) {
+                projetsContainer.innerHTML = '<p class="no-data">Aucun projet disponible pour le moment.</p>';
+                return;
+            }
+            
+            filteredProjets.forEach(projet => {
+                const card = document.createElement('div');
+                card.className = 'projet-item';
+                card.dataset.id = projet.id;
+                card.dataset.statut = projet.statut;
+                
+                // Déterminer la classe de statut
+                let statusClass = '';
+                let statusText = '';
+                switch(projet.statut) {
+                    case 'en_cours':
+                        statusClass = 'status-en-cours';
+                        statusText = 'En cours';
+                        break;
+                    case 'termine':
+                        statusClass = 'status-termine';
+                        statusText = 'Terminé';
+                        break;
+                    case 'a_venir':
+                        statusClass = 'status-a-venir';
+                        statusText = 'À venir';
+                        break;
+                }
+                
+                card.innerHTML = `
+                    ${projet.image ? `<img src="${projet.image}" alt="${projet.titre}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;">` : ''}
+                    <span class="projet-status ${statusClass}">${statusText}</span>
+                    <h3>${projet.titre}</h3>
+                    <p>${projet.description}</p>
+                    <div class="projet-dates">
+                        ${projet.date_debut ? `<div><strong>Début:</strong> ${formatDate(projet.date_debut)}</div>` : ''}
+                        ${projet.date_fin ? `<div><strong>Fin:</strong> ${formatDate(projet.date_fin)}</div>` : ''}
+                    </div>
+                    ${projet.localisation ? `<div class="projet-stat"><i class="fas fa-map-marker-alt"></i> ${projet.localisation}</div>` : ''}
+                    ${adminPanel.style.display === 'block' ? `
+                    <div class="admin-actions">
+                        <button class="admin-btn btn-edit" data-id="${projet.id}">Modifier</button>
+                        <button class="admin-btn btn-delete" data-id="${projet.id}">Supprimer</button>
+                    </div>
+                    ` : ''}
+                `;
+                
+                card.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('admin-btn')) {
+                        openProjetModal(projet.id);
+                    }
+                });
+                
+                projetsContainer.appendChild(card);
+            });
+            
+            // Ajouter les écouteurs d'événements pour les boutons admin
+            if (adminPanel.style.display === 'block') {
+                document.querySelectorAll('.btn-edit').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        editProjet(parseInt(btn.dataset.id));
+                    });
+                });
+                
+                document.querySelectorAll('.btn-delete').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        deleteProjet(parseInt(btn.dataset.id));
+                    });
+                });
+            }
+        }
+
+        function updateStats() {
+            // Mettre à jour les statistiques dans la section dédiée
+            document.getElementById('projets-count').textContent = projets.length;
+            
+            // Compter les bénéficiaires (approximation basée sur les données disponibles)
+            let beneficiairesCount = 0;
+            projets.forEach(projet => {
+                if (projet.beneficiaires) {
+                    // Essayer d'extraire un nombre du texte des bénéficiaires
+                    const matches = projet.beneficiaires.match(/\d+/g);
+                    if (matches) {
+                        beneficiairesCount += parseInt(matches[0]);
+                    }
+                }
+            });
+            document.getElementById('beneficiaires-count').textContent = beneficiairesCount.toLocaleString();
+            
+            // Compter les pays (approximation basée sur la localisation)
+            const pays = new Set();
+            projets.forEach(projet => {
+                if (projet.localisation) {
+                    // Extraire le pays de la localisation
+                    if (projet.localisation.includes('Bénin') || projet.localisation.includes('Benin')) pays.add('Bénin');
+                    if (projet.localisation.includes('Togo')) pays.add('Togo');
+                    if (projet.localisation.includes('Niger')) pays.add('Niger');
+                    if (projet.localisation.includes('Burkina')) pays.add('Burkina Faso');
+                    // Ajouter d'autres pays selon besoin
+                }
+            });
+            document.getElementById('pays-count').textContent = pays.size;
+            
+            // Compter les partenaires (approximation)
+            const partenaires = new Set();
+            projets.forEach(projet => {
+                if (projet.partenaires) {
+                    const parts = projet.partenaires.split(';');
+                    parts.forEach(part => {
+                        if (part.trim()) partenaires.add(part.trim());
+                    });
+                }
+            });
+            document.getElementById('partenaires-count').textContent = partenaires.size;
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return "Non spécifiée";
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        }
+
+        function openProjetModal(id) {
+            const projet = projets.find(p => p.id === id);
+            if (!projet) return;
+            
+            // Déterminer la classe de statut
+            let statusClass = '';
+            let statusText = '';
+            switch(projet.statut) {
+                case 'en_cours':
+                    statusClass = 'status-en-cours';
+                    statusText = 'En cours';
+                    break;
+                case 'termine':
+                    statusClass = 'status-termine';
+                    statusText = 'Terminé';
+                    break;
+                case 'a_venir':
+                    statusClass = 'status-a-venir';
+                    statusText = 'À venir';
+                    break;
+            }
+            
+            modalContent.innerHTML = `
+                <h2>${projet.titre} <span class="projet-status ${statusClass}">${statusText}</span></h2>
+                ${projet.image ? `<img src="${projet.image}" alt="${projet.titre}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">` : ''}
+                <p class="modal-description">${projet.description}</p>
+                
+                <div class="modal-details-grid">
+                    <div class="modal-section">
+                        <h3>Informations générales</h3>
+                        <div class="modal-detail-item">
+                            <div class="modal-detail-label">Statut</div>
+                            <div class="modal-detail-value"><span class="projet-status ${statusClass}">${statusText}</span></div>
+                        </div>
+                        ${projet.date_debut ? `
+                        <div class="modal-detail-item">
+                            <div class="modal-detail-label">Date de début</div>
+                            <div class="modal-detail-value">${formatDate(projet.date_debut)}</div>
+                        </div>
+                        ` : ''}
+                        ${projet.date_fin ? `
+                        <div class="modal-detail-item">
+                            <div class="modal-detail-label">Date de fin</div>
+                            <div class="modal-detail-value">${formatDate(projet.date_fin)}</div>
+                        </div>
+                        ` : ''}
+                        ${projet.localisation ? `
+                        <div class="modal-detail-item">
+                            <div class="modal-detail-label">Localisation</div>
+                            <div class="modal-detail-value">${projet.localisation}</div>
+                        </div>
+                        ` : ''}
+                        ${projet.budget ? `
+                        <div class="modal-detail-item">
+                            <div class="modal-detail-label">Budget</div>
+                            <div class="modal-detail-value">${projet.budget}</div>
+                        </div>
+                        ` : ''}
+                    </div>
+                    
+                    ${projet.objectifs ? `
+                    <div class="modal-section">
+                        <h3>Objectifs</h3>
+                        <ul class="detail-list">
+                            ${JSON.parse(projet.objectifs).map(objectif => `<li>${objectif}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    ${projet.resultats ? `
+                    <div class="modal-section">
+                        <h3>Résultats</h3>
+                        <ul class="detail-list">
+                            ${JSON.parse(projet.resultats).map(resultat => `<li>${resultat}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    ${projet.partenaires ? `
+                    <div class="modal-section">
+                        <h3>Partenaires</h3>
+                        <ul class="detail-list">
+                            ${JSON.parse(projet.partenaires).map(partenaire => `<li>${partenaire}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    ${projet.beneficiaires ? `
+                    <div class="modal-section">
+                        <h3>Bénéficiaires</h3>
+                        <div class="modal-detail-value">${projet.beneficiaires}</div>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            supportButton.onclick = () => {
+                alert(`Soutien pour le projet ${projet.titre}`);
+                // Rediriger vers un formulaire de soutien
+            };
+            
+            projetModal.style.display = 'block';
+        }
+
+        function closeProjetModal() {
+            projetModal.style.display = 'none';
+        }
+
+        // Fonctions pour l'interface admin
+        async function toggleAdminPanel() {
+            if (adminPanel.style.display === 'block') {
+                adminPanel.style.display = 'none';
+                adminToggle.textContent = 'Mode Admin';
+                renderProjets(document.querySelector('.filter-btn.active').dataset.filter);
+            } else {
+                // Demander un mot de passe simple (pour la démo)
+                const password = prompt('Entrez le mot de passe admin:');
+                if (password === 'admin123') { // Mot de passe simple pour la démo
+                    adminPanel.style.display = 'block';
+                    adminToggle.textContent = 'Mode Normal';
+                    loadProjets();
+                }
+            }
+        }
+
+        function editProjet(id) {
+            const projet = projets.find(p => p.id === id);
+            if (!projet) return;
+            
+            document.getElementById('projet-id').value = projet.id;
+            document.getElementById('projet-titre').value = projet.titre;
+            document.getElementById('projet-description').value = projet.description;
+            document.getElementById('projet-statut').value = projet.statut;
+            document.getElementById('projet-date-debut').value = projet.date_debut || '';
+            document.getElementById('projet-date-fin').value = projet.date_fin || '';
+            document.getElementById('projet-localisation').value = projet.localisation || '';
+            document.getElementById('projet-budget').value = projet.budget || '';
+            document.getElementById('projet-objectifs').value = projet.objectifs || '';
+            document.getElementById('projet-resultats').value = projet.resultats || '';
+            document.getElementById('projet-partenaires').value = projet.partenaires || '';
+            document.getElementById('projet-beneficiaires').value = projet.beneficiaires || '';
+            
+            // Afficher l'image si elle existe
+            if (projet.image) {
+                imagePreview.innerHTML = `<img src="${projet.image}" alt="Prévisualisation">`;
+            } else {
+                imagePreview.innerHTML = `
+                    <div class="image-preview-placeholder">
+                        <i class="fas fa-image" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                        <p>Aperçu de l'image</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function deleteProjet(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
+                try {
+                    const response = await fetch(`${API_URL}?action=delete_projet&id=${id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if (!response.ok) throw new Error('Erreur lors de la suppression');
+                    
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Projet supprimé avec succès!');
+                        loadProjets();
+                    } else {
+                        alert('Erreur: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Erreur:', error);
+                    alert('Impossible de supprimer le projet. Veuillez réessayer.');
+                }
+            }
+        }
+
+        async function saveProjet(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(projetForm);
+            formData.append('action', 'save_projet');
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) throw new Error('Erreur lors de la sauvegarde');
+                
+                const result = await response.json();
+                if (result.success) {
+                    alert('Projet enregistré avec succès!');
+                    loadProjets();
+                    cancelEditForm();
+                } else {
+                    alert('Erreur: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Impossible de sauvegarder le projet. Veuillez réessayer.');
+            }
+        }
+
+        function cancelEditForm() {
+            projetForm.reset();
+            document.getElementById('projet-id').value = '';
+            imagePreview.innerHTML = `
+                <div class="image-preview-placeholder">
+                    <i class="fas fa-image" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                    <p>Aperçu de l'image</p>
+                </div>
+            `;
+        }
+
+        // Prévisualisation de l'image
+        function setupImagePreview() {
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Prévisualisation">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        // Filtrage des projets
+        function setupFilters() {
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Retirer la classe active de tous les boutons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Ajouter la classe active au bouton cliqué
+                    button.classList.add('active');
+                    // Filtrer les projets
+                    renderProjets(button.dataset.filter);
+                });
+            });
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProjets();
+            setupImagePreview();
+            setupFilters();
+            
+            // Événements
+            adminToggle.addEventListener('click', toggleAdminPanel);
+            closeModal.addEventListener('click', closeProjetModal);
+            projetForm.addEventListener('submit', saveProjet);
+            cancelEdit.addEventListener('click', cancelEditForm);
+            clearForm.addEventListener('click', cancelEditForm);
+            
+            // Fermer le modal en cliquant à l'extérieur
+            window.addEventListener('click', (e) => {
+                if (e.target === projetModal) {
+                    closeProjetModal();
+                }
+            });
+            
+            // Animation des éléments au défilement
+            const animateOnScroll = () => {
+                const projetCards = document.querySelectorAll('.projet-item');
+                projetCards.forEach((card, index) => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (cardPosition < screenPosition) {
+                        setTimeout(() => {
+                            card.style.opacity = 1;
+                            card.style.transform = 'translateY(0)';
+                            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        }, index * 200);
+                    }
+                });
+            };
+            
+            // Initial check on load
+            animateOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Back to top button
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Menu mobile
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileNav = document.getElementById('mobile-nav');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+                
+                if (mobileMenuBtn.classList.contains('active')) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+            
+            // Fermer le menu mobile en cliquant sur un lien
+            const mobileLinks = document.querySelectorAll('#mobile-nav a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Header scroll effect
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('main-header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

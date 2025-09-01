@@ -14,13 +14,41 @@
             --light-gray: #F5F5F5;
             --dark-gray: #333333;
             --white: #FFFFFF;
-            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition: all 0.3s ease;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Styles pour le logo personnalisé */
+        .logo-custom {
+            width: 250px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-custom img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        /* Ajustement pour l'espace logo sur mobile */
+        @media (max-width: 992px) {
+            .logo-custom {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-custom {
+                width: 180px;
+                height: 50px;
+            }
         }
         
         body {
@@ -30,55 +58,12 @@
             overflow-x: hidden;
             line-height: 1.6;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding-top: 80px; /* Pour compenser le header fixe */
         }
         
         h1, h2, h3, h4 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
-        }
-        
-        /* Animations de base */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideInFromTop {
-            from { transform: translateY(-100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        @keyframes slideInFromBottom {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        @keyframes slideInFromLeft {
-            from { transform: translateX(-100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes slideInFromRight {
-            from { transform: translateX(100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        @keyframes glow {
-            0% { box-shadow: 0 0 5px var(--orange); }
-            50% { box-shadow: 0 0 20px var(--orange); }
-            100% { box-shadow: 0 0 5px var(--orange); }
         }
         
         /* Styles généraux */
@@ -106,7 +91,7 @@
         
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
         /* Header Styles */
@@ -124,43 +109,20 @@
             transition: var(--transition);
         }
         
+        #main-header.scrolled {
+            padding: 10px 5%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+        }
+        
         .logo-container {
             display: flex;
             align-items: center;
         }
-
-        /* Styles pour le logo personnalisé */
-        .logo-custom {
-            width: 250px;
-            height: 60px;
+        
+        #main-nav {
             display: flex;
             align-items: center;
-        }
-
-        .logo-custom img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-        }
-
-        /* Ajustement pour l'espace logo sur mobile */
-        @media (max-width: 768px) {
-            .logo-custom {
-                width: 150px;
-                height: 50px;
-            }
-        }
-        
-        .logo-text h1 {
-            font-size: 1.4rem;
-            color: var(--green);
-            margin-bottom: 0;
-        }
-        
-        .logo-text p {
-            font-size: 0.8rem;
-            color: var(--orange);
-            margin-top: -5px;
         }
         
         #main-nav ul {
@@ -170,15 +132,19 @@
         
         #main-nav ul li {
             margin: 0 10px;
+            position: relative;
         }
         
         #main-nav ul li a {
             text-decoration: none;
             color: var(--dark-gray);
-            font-weight: 600;
+            font-weight: 700;
             position: relative;
-            padding: 5px 0;
+            padding: 8px 0;
             transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
         }
         
         #main-nav ul li a:after {
@@ -190,6 +156,7 @@
             height: 3px;
             background: var(--orange);
             transition: var(--transition);
+            border-radius: 3px;
         }
         
         #main-nav ul li a:hover:after,
@@ -197,16 +164,70 @@
             width: 100%;
         }
         
+        #main-nav ul li a:hover {
+            color: var(--orange);
+        }
+        
         .mobile-menu-btn {
             display: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
             color: var(--green);
+            transition: var(--transition);
+        }
+        
+        .mobile-menu-btn:hover {
+            color: var(--orange);
+        }
+        
+        /* Mobile menu */
+        #mobile-nav {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--white);
+            overflow: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        #mobile-nav.active {
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+        
+        #mobile-nav ul {
+            list-style: none;
+            padding: 30px 5%;
+        }
+        
+        #mobile-nav ul li {
+            margin: 20px 0;
+        }
+        
+        #mobile-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            display: block;
+            padding: 10px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        #mobile-nav ul li a:hover {
+            color: var(--orange);
+            padding-left: 15px;
         }
         
         /* Hero Section */
         .page-hero {
-            padding: 160px 5% 80px;
+            padding: 140px 5% 60px;
             text-align: center;
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                         url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
@@ -218,32 +239,30 @@
         }
         
         .page-hero h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 20px;
             text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1s ease-out;
         }
         
         .page-hero p {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             max-width: 800px;
             margin: 0 auto;
-            animation: fadeIn 1.5s ease-out;
         }
         
         /* Certifications Section */
         #certifications {
-            padding: 100px 5%;
+            padding: 80px 5%;
             position: relative;
         }
         
         .section-header {
             text-align: center;
-            margin-bottom: 70px;
+            margin-bottom: 60px;
         }
         
         .section-header h2 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             color: var(--green);
             margin-bottom: 15px;
             position: relative;
@@ -262,138 +281,306 @@
             border-radius: 3px;
         }
         
-        .certification-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 50px;
-            margin-bottom: 60px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        
-        .certification-card.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .certification-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
-        }
-        
-        .certification-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 40px;
-            gap: 30px;
-        }
-        
-        .certification-icon {
-            width: 100px;
-            height: 100px;
-            min-width: 100px;
-            background: linear-gradient(135deg, var(--green), var(--orange));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 2.5rem;
-            box-shadow: 0 8px 20px rgba(34, 139, 34, 0.3);
-        }
-        
-        .certification-title {
-            flex: 1;
-        }
-        
-        .certification-title h3 {
-            font-size: 2.2rem;
-            color: var(--green);
-            margin-bottom: 10px;
-        }
-        
-        .certification-title p {
-            font-size: 1.2rem;
-            color: var(--dark-gray);
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, var(--light-gray), #e8e8e8);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            transition: var(--transition);
-            border-left: 5px solid var(--orange);
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--orange);
-            display: block;
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-        
-        .stat-label {
-            font-size: 1.1rem;
-            color: var(--dark-gray);
-            font-weight: 600;
-        }
-        
-        .implementation {
-            background: linear-gradient(135deg, var(--light-gray), #e8e8e8);
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 40px;
-        }
-        
-        .implementation h4 {
-            font-size: 1.5rem;
-            color: var(--green);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .implementation-content {
+        .certifications-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
-        .implementation-item {
+        .certification-item {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .certification-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .certification-item h3 {
+            font-size: 1.4rem;
+            color: var(--green);
+            margin-bottom: 15px;
+        }
+        
+        .certification-item p {
+            color: var(--dark-gray);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .cert-stats {
             display: flex;
-            align-items: flex-start;
-            gap: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
         }
         
-        .implementation-icon {
-            width: 50px;
-            height: 50px;
-            min-width: 50px;
-            background: var(--green);
-            border-radius: 50%;
+        .cert-stat {
+            background: var(--light-gray);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .cert-dates {
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .cert-dates div {
+            margin-bottom: 5px;
+        }
+        
+        .admin-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .admin-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .btn-edit {
+            background-color: var(--orange);
+            color: white;
+        }
+        
+        .btn-edit:hover {
+            background-color: #e67e00;
+        }
+        
+        .btn-delete {
+            background-color: #ff4d4d;
+            color: white;
+        }
+        
+        .btn-delete:hover {
+            background-color: #ff3333;
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .admin-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--light-gray);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--green);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d0d0d0;
+        }
+        
+        .btn-danger {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn-danger:hover {
+            background-color: #ff3333;
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed var(--light-gray);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
-            font-size: 1.2rem;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-preview-placeholder {
+            color: #aaa;
+            text-align: center;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            cursor: pointer;
+        }
+        
+        .close-modal:hover {
+            color: var(--dark-gray);
+        }
+        
+        .modal-actions {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .modal-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .modal-section {
+            margin-bottom: 25px;
+        }
+        
+        .modal-section h3 {
+            color: var(--green);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--orange);
+        }
+        
+        .modal-detail-item {
+            margin-bottom: 15px;
+        }
+        
+        .modal-detail-label {
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+        }
+        
+        .modal-detail-value {
+            color: #555;
+        }
+        
+        .detail-list {
+            list-style-type: none;
+        }
+        
+        .detail-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .detail-list li:before {
+            content: "•";
+            color: var(--orange);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
         }
         
         /* Other Certifications */
@@ -439,28 +626,31 @@
         
         /* CTA Section */
         #cta {
-            padding: 100px 5%;
+            padding: 80px 5%;
             text-align: center;
         }
         
         #cta h2 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--green);
             margin-bottom: 30px;
+            text-align: center;
         }
         
         #cta p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             max-width: 800px;
             margin: 0 auto 40px;
             line-height: 1.7;
+            text-align: center;
         }
         
         /* Footer */
         #main-footer {
             background: linear-gradient(135deg, var(--dark-gray), #222);
             color: var(--white);
-            padding: 70px 5% 20px;
+            padding: 70px 5% 30px;
+            position: relative;
         }
         
         .footer-grid {
@@ -471,16 +661,136 @@
             margin: 0 auto 50px;
         }
         
-        .footer-about {
-            grid-column: 1 / -1;
-            text-align: center;
-        }
-        
         .footer-logo {
             display: flex;
             align-items: center;
-            justify-content: center;
             margin-bottom: 20px;
+        }
+        
+        .footer-about p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--orange);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links h4,
+        .footer-contact h4,
+        .footer-newsletter h4 {
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links h4:after,
+        .footer-contact h4:after,
+        .footer-newsletter h4:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--orange);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--orange);
+            padding-left: 5px;
+        }
+        
+        .footer-contact ul {
+            list-style: none;
+        }
+        
+        .footer-contact ul li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-contact ul li i {
+            color: var(--orange);
+            margin-right: 15px;
+            min-width: 20px;
+            margin-top: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-newsletter p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .footer-newsletter form {
+            display: flex;
+        }
+        
+        .footer-newsletter input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .footer-newsletter button {
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .footer-newsletter button:hover {
+            background: var(--green);
         }
         
         .footer-bottom {
@@ -489,10 +799,25 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding-top: 20px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
-            opacity: 0.7;
+            opacity: 0.8;
+        }
+        
+        .footer-extra-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-extra-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-extra-links a:hover {
+            color: var(--orange);
         }
         
         /* Back to top */
@@ -512,10 +837,10 @@
             justify-content: center;
             font-size: 1.2rem;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
             transition: var(--transition);
             z-index: 999;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         #back-to-top.show {
@@ -530,80 +855,76 @@
         
         /* Responsive */
         @media (max-width: 992px) {
-            .certification-header {
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
+            .admin-form {
+                grid-template-columns: 1fr;
             }
             
-            .stats-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .page-hero {
-                padding: 140px 5% 60px;
+            .modal-details-grid {
+                grid-template-columns: 1fr;
             }
             
-            .page-hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .page-hero p {
-                font-size: 1.2rem;
-            }
-            
-            .section-header h2 {
-                font-size: 2.2rem;
-            }
-            
-            .certification-card {
-                padding: 30px;
-            }
-            
-            .certification-title h3 {
-                font-size: 1.8rem;
+            #main-nav ul {
+                display: none;
             }
             
             .mobile-menu-btn {
                 display: block;
             }
-            
-            #main-nav {
-                position: fixed;
-                top: 90px;
-                right: -100%;
-                width: 300px;
-                height: calc(100vh - 90px);
-                background: var(--white);
-                padding: 30px;
-                transition: var(--transition);
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero {
+                padding: 120px 5% 50px;
             }
             
-            #main-nav.active {
-                right: 0;
+            .page-hero h1 {
+                font-size: 2.2rem;
             }
             
-            #main-nav ul {
-                flex-direction: column;
+            .page-hero p {
+                font-size: 1.1rem;
             }
             
-            #main-nav ul li {
-                margin: 10px 0;
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .certification-item {
+                padding: 20px;
+            }
+            
+            .certification-item h3 {
+                font-size: 1.3rem;
             }
             
             .footer-bottom {
                 flex-direction: column;
-                gap: 20px;
+                gap: 15px;
                 text-align: center;
+            }
+            
+            .footer-extra-links {
+                justify-content: center;
+            }
+            
+            .footer-newsletter form {
+                flex-direction: column;
+            }
+            
+            .footer-newsletter input {
+                border-radius: 50px;
+                margin-bottom: 10px;
+            }
+            
+            .footer-newsletter button {
+                border-radius: 50px;
+                padding: 12px;
             }
         }
         
         @media (max-width: 480px) {
             .page-hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .page-hero p {
@@ -611,349 +932,32 @@
             }
             
             .section-header h2 {
+                font-size: 1.6rem;
+            }
+            
+            .certification-item h3 {
+                font-size: 1.2rem;
+            }
+            
+            #cta h2 {
                 font-size: 1.8rem;
             }
             
-            .certification-card {
-                padding: 20px;
+            .admin-actions {
+                flex-direction: column;
             }
             
-            .certification-title h3 {
-                font-size: 1.5rem;
-            }
-            
-            .stat-number {
-                font-size: 2.5rem;
-            }
-            
-            .implementation-content {
-                grid-template-columns: 1fr;
+            .form-actions {
+                flex-direction: column;
             }
         }
 
-        /* Styles pour l'interface admin */
-        .admin-panel {
-            display: none;
-            background: var(--white);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .admin-panel h3 {
-            color: var(--green);
-            margin-bottom: 20px;
+        .no-data {
             text-align: center;
-        }
-
-        .admin-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group.full-width {
+            color: var(--dark-gray);
+            font-size: 1.2rem;
+            padding: 40px;
             grid-column: 1 / -1;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark-gray);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid var(--light-gray);
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: var(--transition);
-            background: var(--light-gray);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--green);
-            background: var(--white);
-            box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
-        }
-
-        textarea.form-control {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .form-actions {
-            grid-column: 1 / -1;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .btn-secondary {
-            background-color: var(--light-gray);
-            color: var(--dark-gray);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-secondary:hover {
-            background-color: #d0d0d0;
-        }
-
-        .btn-danger {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-danger:hover {
-            background-color: #ff3333;
-        }
-
-        /* Styles pour le modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        .modal-content {
-            background-color: var(--white);
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 1000px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            animation: modalFadeIn 0.3s;
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .close-modal {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            cursor: pointer;
-        }
-
-        .close-modal:hover {
-            color: var(--dark-gray);
-        }
-
-        .modal-actions {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        /* Styles pour les cartes de certification */
-        .certifications-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .certification-item {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-        }
-
-        .certification-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .certification-item h3 {
-            color: var(--green);
-            margin-bottom: 15px;
-        }
-
-        .certification-item p {
-            color: var(--dark-gray);
-            margin-bottom: 20px;
-        }
-
-        .cert-stats {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .cert-stat {
-            background: var(--light-gray);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-
-        .admin-actions {
-            margin-top: 15px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .admin-btn {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .btn-edit {
-            background-color: var(--orange);
-            color: white;
-        }
-
-        .btn-edit:hover {
-            background-color: #e67e00;
-        }
-
-        .btn-delete {
-            background-color: #ff4d4d;
-            color: white;
-        }
-
-        .btn-delete:hover {
-            background-color: #ff3333;
-        }
-
-        /* Image preview */
-        .image-preview {
-            width: 100%;
-            height: 200px;
-            border: 2px dashed var(--light-gray);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            overflow: hidden;
-        }
-
-        .image-preview img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-        }
-
-        .image-preview-placeholder {
-            color: #aaa;
-            text-align: center;
-        }
-
-        /* Login form */
-        .login-form {
-            max-width: 400px;
-            margin: 100px auto;
-            background: var(--white);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .login-form h2 {
-            text-align: center;
-            color: var(--green);
-            margin-bottom: 30px;
-        }
-
-        /* Styles pour l'affichage détaillé des certifications */
-        .modal-details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .modal-section {
-            margin-bottom: 25px;
-        }
-
-        .modal-section h3 {
-            color: var(--green);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--orange);
-        }
-
-        .modal-detail-item {
-            margin-bottom: 15px;
-        }
-
-        .modal-detail-label {
-            font-weight: 600;
-            color: var(--dark-gray);
-            margin-bottom: 5px;
-        }
-
-        .modal-detail-value {
-            color: #555;
-        }
-
-        .detail-list {
-            list-style-type: none;
-        }
-
-        .detail-list li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .detail-list li:before {
-            content: "•";
-            color: var(--orange);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        @media (max-width: 768px) {
-            .modal-details-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -968,12 +972,10 @@
         
         <nav id="main-nav">
             <ul>
-                <li><a href="index.html">ACCEUIL</a></li>
+                <li><a href="index.html">ACCUEIL</a></li>
                 <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
-                <li><a href="ODD.html">ODDs</a></li>
+                <li><a href="ODD.html">ODDs VISES</a></li>
                 <li class="active"><a href="Certificat.html">CERTIFICATIONS</a></li>
-                <!--<li><a href="#">Projets</a></li>-->
-                <li><a href="Contact.html">CONTACT</a></li>
                 <li><a href="Projets.html">PROJETS</a></li>
                 <li><a href="Contact.html">CONTACT</a></li>
                 <li><a href="Partenaires.html">PARTENAIRES</a></li>
@@ -986,6 +988,21 @@
             <i class="fas fa-bars"></i>
         </div>
     </header>
+
+    <!-- Mobile navigation -->
+    <nav id="mobile-nav">
+        <ul>
+            <li><a href="index.html">ACCUEIL</a></li>
+            <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
+            <li><a href="ODD.html">ODDs VISES</a></li>
+            <li class="active"><a href="Certificat.html">CERTIFICATIONS</a></li>
+            <li><a href="Projets.html">PROJETS</a></li>
+            <li><a href="Contact.html">CONTACT</a></li>
+            <li><a href="Partenaires.html">PARTENAIRES</a></li>
+            <li><a href="Galerie.html">GALERIE</a></li>
+            <li><a href="Blog.html">BLOG</a></li>
+        </ul>
+    </nav>
 
     <!-- Hero Section -->
     <section class="page-hero">
@@ -1006,8 +1023,8 @@
             <!-- Interface Admin (cachée par défaut) -->
             <div id="admin-panel" class="admin-panel">
                 <h3>Gestion des Certifications</h3>
-                <form id="certification-form" class="admin-form">
-                    <input type="hidden" id="certification-id">
+                <form id="certification-form" class="admin-form" enctype="multipart/form-data">
+                    <input type="hidden" id="certification-id" name="id">
                     
                     <div class="form-group full-width">
                         <label for="cert-image">Image de la certification</label>
@@ -1017,72 +1034,72 @@
                                 <p>Aperçu de l'image</p>
                             </div>
                         </div>
-                        <input type="file" id="cert-image" accept="image/*" class="form-control">
+                        <input type="file" id="cert-image" name="image" accept="image/*" class="form-control">
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-title">Titre de la certification</label>
-                        <input type="text" id="cert-title" class="form-control" required>
+                        <input type="text" id="cert-title" name="title" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-description">Description</label>
-                        <textarea id="cert-description" class="form-control" required></textarea>
+                        <textarea id="cert-description" name="description" class="form-control" required></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-stats">Statistiques (séparées par des points-virgules)</label>
-                        <textarea id="cert-stats" class="form-control" placeholder="416 candidatures reçues;31 boursiers complets;40 demi-boursiers"></textarea>
+                        <textarea id="cert-stats" name="stats" class="form-control" placeholder="416 candidatures reçues;31 boursiers complets;40 demi-boursiers"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-modules">Modules (séparés par des points-virgules)</label>
-                        <textarea id="cert-modules" class="form-control" placeholder="Module 1: Introduction;Module 2: Techniques avancées"></textarea>
+                        <textarea id="cert-modules" name="modules" class="form-control" placeholder="Module 1: Introduction;Module 2: Techniques avancées"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-inscription">Modalités d'inscription</label>
-                        <textarea id="cert-inscription" class="form-control" placeholder="Processus d'inscription détaillé..."></textarea>
+                        <textarea id="cert-inscription" name="inscription" class="form-control" placeholder="Processus d'inscription détaillé..."></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-date-limite">Date limite d'inscription</label>
-                        <input type="date" id="cert-date-limite" class="form-control">
+                        <input type="date" id="cert-date-limite" name="date_limite" class="form-control">
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-date-debut">Date de début de formation</label>
-                        <input type="date" id="cert-date-debut" class="form-control">
+                        <input type="date" id="cert-date-debut" name="date_debut" class="form-control">
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-public">Public cible</label>
-                        <textarea id="cert-public" class="form-control" placeholder="Professionnels du secteur agricole, étudiants..."></textarea>
+                        <textarea id="cert-public" name="public_cible" class="form-control" placeholder="Professionnels du secteur agricole, étudiants..."></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-methodologie">Méthodologie</label>
-                        <textarea id="cert-methodologie" class="form-control" placeholder="Formation en ligne, présentiel, hybrid..."></textarea>
+                        <textarea id="cert-methodologie" name="methodologie" class="form-control" placeholder="Formation en ligne, présentiel, hybrid..."></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-cout">Coût de la formation</label>
-                        <input type="text" id="cert-cout" class="form-control" placeholder="500 000 FCFA ou Gratuit">
+                        <input type="text" id="cert-cout" name="cout" class="form-control" placeholder="500 000 FCFA ou Gratuit">
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-duree">Durée de la formation</label>
-                        <input type="text" id="cert-duree" class="form-control" placeholder="3 mois, 120 heures">
+                        <input type="text" id="cert-duree" name="duree" class="form-control" placeholder="3 mois, 120 heures">
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-prerequis">Prérequis</label>
-                        <textarea id="cert-prerequis" class="form-control" placeholder="Diplôme de niveau Bac+2, expérience professionnelle..."></textarea>
+                        <textarea id="cert-prerequis" name="prerequis" class="form-control" placeholder="Diplôme de niveau Bac+2, expérience professionnelle..."></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="cert-debouchés">Débouchés</label>
-                        <textarea id="cert-debouchés" class="form-control" placeholder="Métiers et opportunités après la certification..."></textarea>
+                        <textarea id="cert-debouchés" name="debouchés" class="form-control" placeholder="Métiers et opportunités après la certification..."></textarea>
                     </div>
                     
                     <div class="form-actions">
@@ -1159,27 +1176,65 @@
 
     <!-- Footer -->
     <footer id="main-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        <div class="logo-container">
-                            <div class="logo-custom">
-                                <img src="logo.png" alt="Logo AEC - Agricultural Expertise Center">
-                            </div>
-                            <h3>Agricultural Expertise Center</h3>
+        <div class="footer-grid">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <div class="logo-container">
+                        <div class="logo-custom">
+                            <img src="logo.png" alt="Logo AEC - Agricultural Expertise Center">
                         </div>
                     </div>
-                    <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                    <h3>Agricultural Expertise Center</h3>
+                </div>
+                <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
-                <div class="footer-extra-links">
-                    <a href="#">Politique de confidentialité</a>
-                    <a href="#">Mentions légales</a>
-                </div>
+            <div class="footer-links">
+                <h4>Liens rapides</h4>
+                <ul>
+                    <li><a href="index.html">ACCUEIL</a></li>
+                    <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
+                    <li><a href="ODD.html">ODDs VISES</a></li>
+                    <li><a href="Certificat.html">CERTIFICATIONS</a></li>
+                    <li><a href="Projets.html">PROJETS</a></li>
+                    <li><a href="Contact.html">CONTACTS</a></li>
+                    <li><a href="Partenaires.html">PARTENAIRES</a></li>
+                    <li><a href="Galerie.html">GALERIE</a></li>
+                    <li><a href="Blog.html">CIFAD BLOG</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Contactez-nous</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Zongo II, Parakou, BENIN</li>
+                    <li><i class="fas fa-phone"></i> (+229) 0196886696 / 0166843095</li>
+                    <li><i class="fas fa-envelope"></i> contact@aec-afrique.org</li>
+                    <li><i class="fas fa-envelope"></i> aecenter@outlook.fr</li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h4>Restez informés</h4>
+                <p>Inscrivez-vous pour recevoir nos actualités</p>
+                <form>
+                    <input type="email" placeholder="Votre email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
+            <div class="footer-extra-links">
+                <a href="#">Politique de confidentialité</a>
+                <a href="#">Mentions légales</a>
             </div>
         </div>
     </footer>
@@ -1190,63 +1245,11 @@
     </button>
 
     <script>
-        // Données des certifications (seront chargées depuis le localStorage)
-        let certifications = JSON.parse(localStorage.getItem('certifications')) || [
-            {
-                id: 1,
-                title: "Certification en Chaînes de Valeurs Agricoles Durables (CVAD)",
-                description: "Programme de formation avancée pour professionnels du secteur agricole en contexte africain",
-                image: null,
-                stats: [
-                    "416 candidatures reçues",
-                    "31 boursiers complets",
-                    "40 demi-boursiers",
-                    "16 pays représentés"
-                ],
-                modules: [
-                    "La certification CVAD est constituée de 08 modules spécialisés",
-                    "Chaque module durant 03 jours",
-                    "Le cours se fait en ligne sur notre plateforme d'e-learning CANVAS",
-                    "Séance d'échange entre formateurs et participants à la fin de chaque module"
-                ],
-                inscription: "Pour postuler, veuillez soumettre votre CV, une lettre de motivation et les copies de vos diplômes via notre plateforme en ligne. Les candidats présélectionnés seront convoqués pour un entretien.",
-                dateLimite: "2025-10-15",
-                dateDebut: "2025-11-05",
-                publicCible: "Professionnels du secteur agricole, porteurs de projets agricoles, étudiants en agronomie, entrepreneurs agricoles",
-                methodologie: "Formation hybride combinant sessions en ligne asynchrones, webinaires interactifs et ateliers pratiques en présentiel. Accès à une plateforme d'e-learning avec ressources pédagogiques diversifiées.",
-                cout: "250 000 FCFA pour l'ensemble de la formation. Des bourses partielles et complètes sont disponibles sur critères sociaux et académiques.",
-                duree: "4 mois, 120 heures de formation",
-                prerequis: "Diplôme de niveau Bac+2 en agronomie ou domaine connexe, ou au moins 3 ans d'expérience professionnelle dans le secteur agricole. Maîtrise du français indispensable.",
-                debouches: "Chef de projet agricole, Consultant en chaînes de valeurs, Responsable de coopérative agricole, Entrepreneur agroalimentaire, Chargé de développement rural"
-            },
-            {
-                id: 2,
-                title: "Certification en Gestion de Projets Agricoles",
-                description: "Formation complète pour la gestion efficace de projets dans le secteur agricole",
-                image: null,
-                stats: [
-                    "250 candidatures reçues",
-                    "25 boursiers complets",
-                    "30 demi-boursiers",
-                    "12 pays représentés"
-                ],
-                modules: [
-                    "Programme de 06 modules intensifs",
-                    "Formation en ligne avec sessions pratiques",
-                    "Accompagnement personnalisé par des experts",
-                    "Certification reconnue internationalement"
-                ],
-                inscription: "Dépôt de candidature en ligne avec pièces justificatives. Processus de sélection en deux phases: étude du dossier et entretien motivationnel.",
-                dateLimite: "2025-09-30",
-                dateDebut: "2025-10-20",
-                publicCible: "Gestionnaires de projets agricoles, responsables de coopératives, cadres d'ONG agricoles, consultants en développement rural",
-                methodologie: "Apprentissage par projets, études de cas réels, mentoring individualisé. 70% de pratique et 30% de théorie. Évaluation continue sur la base de travaux pratiques.",
-                cout: "300 000 FCFA. Possibilité de paiement échelonné. Programme de bourses selon mérite et besoins.",
-                duree: "3 mois, 90 heures de formation intensive",
-                prerequis: "Expérience préalable en gestion de projet, niveau Bac+3 ou équivalent. Connaissances de base en agriculture requises.",
-                debouches: "Gestionnaire de projets agricoles, Coordinateur de programmes de développement, Consultant en gestion de projets, Chargé de suivi-évaluation"
-            }
-        ];
+        // Configuration
+        const API_URL = 'certification_api.php';
+
+        // Données des certifications (seront chargées depuis l'API)
+        let certifications = [];
 
         // Éléments DOM
         const certificationsContainer = document.getElementById('certifications-container');
@@ -1263,8 +1266,31 @@
         const imagePreview = document.getElementById('image-preview');
 
         // Fonctions pour gérer les certifications
+        async function loadCertifications() {
+            try {
+                const response = await fetch(`${API_URL}?action=get_certifications`);
+                if (!response.ok) throw new Error('Erreur lors du chargement des certifications');
+                
+                const result = await response.json();
+                if (result.success) {
+                    certifications = result.data;
+                    renderCertifications();
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                certificationsContainer.innerHTML = '<p class="no-data">Impossible de charger les certifications. Veuillez réessayer.</p>';
+            }
+        }
+
         function renderCertifications() {
             certificationsContainer.innerHTML = '';
+            
+            if (certifications.length === 0) {
+                certificationsContainer.innerHTML = '<p class="no-data">Aucune certification disponible pour le moment.</p>';
+                return;
+            }
             
             certifications.forEach(cert => {
                 const card = document.createElement('div');
@@ -1276,11 +1302,11 @@
                     <h3>${cert.title}</h3>
                     <p>${cert.description}</p>
                     <div class="cert-stats">
-                        ${cert.stats.map(stat => `<span class="cert-stat">${stat}</span>`).join('')}
+                        ${cert.stats ? JSON.parse(cert.stats).map(stat => `<span class="cert-stat">${stat}</span>`).join('') : ''}
                     </div>
                     <div class="cert-dates" style="margin-top: 15px;">
-                        <div><strong>Date limite:</strong> ${formatDate(cert.dateLimite)}</div>
-                        <div><strong>Début:</strong> ${formatDate(cert.dateDebut)}</div>
+                        <div><strong>Date limite:</strong> ${formatDate(cert.date_limite)}</div>
+                        <div><strong>Début:</strong> ${formatDate(cert.date_debut)}</div>
                     </div>
                     ${adminPanel.style.display === 'block' ? `
                     <div class="admin-actions">
@@ -1341,11 +1367,11 @@
                         <h3>Informations générales</h3>
                         <div class="modal-detail-item">
                             <div class="modal-detail-label">Date limite d'inscription</div>
-                            <div class="modal-detail-value">${formatDate(certification.dateLimite)}</div>
+                            <div class="modal-detail-value">${formatDate(certification.date_limite)}</div>
                         </div>
                         <div class="modal-detail-item">
                             <div class="modal-detail-label">Début de la formation</div>
-                            <div class="modal-detail-value">${formatDate(certification.dateDebut)}</div>
+                            <div class="modal-detail-value">${formatDate(certification.date_debut)}</div>
                         </div>
                         <div class="modal-detail-item">
                             <div class="modal-detail-label">Durée</div>
@@ -1359,7 +1385,7 @@
                     
                     <div class="modal-section">
                         <h3>Public cible</h3>
-                        <div class="modal-detail-value">${certification.publicCible || "Non spécifié"}</div>
+                        <div class="modal-detail-value">${certification.public_cible || "Non spécifié"}</div>
                     </div>
                     
                     <div class="modal-section">
@@ -1379,21 +1405,21 @@
                     
                     <div class="modal-section">
                         <h3>Débouchés</h3>
-                        <div class="modal-detail-value">${certification.debouches || "Non spécifiés"}</div>
+                        <div class="modal-detail-value">${certification.debouchés || "Non spécifiés"}</div>
                     </div>
                 </div>
                 
                 <div class="modal-section">
                     <h3>Statistiques</h3>
                     <ul class="detail-list">
-                        ${certification.stats.map(stat => `<li>${stat}</li>`).join('')}
+                        ${certification.stats ? JSON.parse(certification.stats).map(stat => `<li>${stat}</li>`).join('') : ''}
                     </ul>
                 </div>
                 
                 <div class="modal-section">
                     <h3>Modules de formation</h3>
                     <ul class="detail-list">
-                        ${certification.modules.map(module => `<li>${module}</li>`).join('')}
+                        ${certification.modules ? JSON.parse(certification.modules).map(module => `<li>${module}</li>`).join('') : ''}
                     </ul>
                 </div>
             `;
@@ -1411,7 +1437,7 @@
         }
 
         // Fonctions pour l'interface admin
-        function toggleAdminPanel() {
+        async function toggleAdminPanel() {
             if (adminPanel.style.display === 'block') {
                 adminPanel.style.display = 'none';
                 adminToggle.textContent = 'Mode Admin';
@@ -1421,9 +1447,9 @@
                 if (password === 'admin123') { // Mot de passe simple pour la démo
                     adminPanel.style.display = 'block';
                     adminToggle.textContent = 'Mode Normal';
+                    loadCertifications();
                 }
             }
-            renderCertifications();
         }
 
         function editCertification(id) {
@@ -1433,17 +1459,17 @@
             document.getElementById('certification-id').value = certification.id;
             document.getElementById('cert-title').value = certification.title;
             document.getElementById('cert-description').value = certification.description;
-            document.getElementById('cert-stats').value = certification.stats.join(';');
-            document.getElementById('cert-modules').value = certification.modules.join(';');
+            document.getElementById('cert-stats').value = certification.stats || '';
+            document.getElementById('cert-modules').value = certification.modules || '';
             document.getElementById('cert-inscription').value = certification.inscription || '';
-            document.getElementById('cert-date-limite').value = certification.dateLimite || '';
-            document.getElementById('cert-date-debut').value = certification.dateDebut || '';
-            document.getElementById('cert-public').value = certification.publicCible || '';
+            document.getElementById('cert-date-limite').value = certification.date_limite || '';
+            document.getElementById('cert-date-debut').value = certification.date_debut || '';
+            document.getElementById('cert-public').value = certification.public_cible || '';
             document.getElementById('cert-methodologie').value = certification.methodologie || '';
             document.getElementById('cert-cout').value = certification.cout || '';
             document.getElementById('cert-duree').value = certification.duree || '';
             document.getElementById('cert-prerequis').value = certification.prerequis || '';
-            document.getElementById('cert-debouchés').value = certification.debouches || '';
+            document.getElementById('cert-debouchés').value = certification.debouchés || '';
             
             // Afficher l'image si elle existe
             if (certification.image) {
@@ -1458,108 +1484,55 @@
             }
         }
 
-        function deleteCertification(id) {
+        async function deleteCertification(id) {
             if (confirm('Êtes-vous sûr de vouloir supprimer cette certification ?')) {
-                certifications = certifications.filter(c => c.id !== id);
-                saveCertifications();
-                renderCertifications();
+                try {
+                    const response = await fetch(`${API_URL}?action=delete_certification&id=${id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if (!response.ok) throw new Error('Erreur lors de la suppression');
+                    
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Certification supprimée avec succès!');
+                        loadCertifications();
+                    } else {
+                        alert('Erreur: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Erreur:', error);
+                    alert('Impossible de supprimer la certification. Veuillez réessayer.');
+                }
             }
         }
 
-        function saveCertification(e) {
+        async function saveCertification(e) {
             e.preventDefault();
             
-            const id = document.getElementById('certification-id').value;
-            const title = document.getElementById('cert-title').value;
-            const description = document.getElementById('cert-description').value;
-            const stats = document.getElementById('cert-stats').value.split(';').filter(s => s.trim() !== '');
-            const modules = document.getElementById('cert-modules').value.split(';').filter(m => m.trim() !== '');
-            const inscription = document.getElementById('cert-inscription').value;
-            const dateLimite = document.getElementById('cert-date-limite').value;
-            const dateDebut = document.getElementById('cert-date-debut').value;
-            const publicCible = document.getElementById('cert-public').value;
-            const methodologie = document.getElementById('cert-methodologie').value;
-            const cout = document.getElementById('cert-cout').value;
-            const duree = document.getElementById('cert-duree').value;
-            const prerequis = document.getElementById('cert-prerequis').value;
-            const debouches = document.getElementById('cert-debouchés').value;
+            const formData = new FormData(certificationForm);
+            formData.append('action', 'save_certification');
             
-            // Gérer l'image
-            let image = null;
-            if (imageInput.files && imageInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    image = e.target.result;
-                    completeSave(id, title, description, stats, modules, inscription, dateLimite, dateDebut, publicCible, methodologie, cout, duree, prerequis, debouches, image);
-                };
-                reader.readAsDataURL(imageInput.files[0]);
-            } else {
-                // Si aucune nouvelle image n'est téléchargée, conserver l'ancienne
-                if (id) {
-                    const existingCert = certifications.find(c => c.id === parseInt(id));
-                    image = existingCert ? existingCert.image : null;
-                }
-                completeSave(id, title, description, stats, modules, inscription, dateLimite, dateDebut, publicCible, methodologie, cout, duree, prerequis, debouches, image);
-            }
-        }
-
-        function completeSave(id, title, description, stats, modules, inscription, dateLimite, dateDebut, publicCible, methodologie, cout, duree, prerequis, debouches, image) {
-            if (id) {
-                // Modification
-                const index = certifications.findIndex(c => c.id === parseInt(id));
-                if (index !== -1) {
-                    certifications[index] = {
-                        ...certifications[index],
-                        title,
-                        description,
-                        image,
-                        stats,
-                        modules,
-                        inscription,
-                        dateLimite,
-                        dateDebut,
-                        publicCible,
-                        methodologie,
-                        cout,
-                        duree,
-                        prerequis,
-                        debouches
-                    };
-                }
-            } else {
-                // Nouvelle certification
-                const newId = certifications.length > 0 ? Math.max(...certifications.map(c => c.id)) + 1 : 1;
-                certifications.push({
-                    id: newId,
-                    title,
-                    description,
-                    image,
-                    stats,
-                    modules,
-                    inscription,
-                    dateLimite,
-                    dateDebut,
-                    publicCible,
-                    methodologie,
-                    cout,
-                    duree,
-                    prerequis,
-                    debouches
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
                 });
+                
+                if (!response.ok) throw new Error('Erreur lors de la sauvegarde');
+                
+                const result = await response.json();
+                if (result.success) {
+                    alert('Certification enregistrée avec succès!');
+                    loadCertifications();
+                    cancelEditForm();
+                } else {
+                    alert('Erreur: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Impossible de sauvegarder la certification. Veuillez réessayer.');
             }
-            
-            saveCertifications();
-            certificationForm.reset();
-            document.getElementById('certification-id').value = '';
-            imagePreview.innerHTML = `
-                <div class="image-preview-placeholder">
-                    <i class="fas fa-image" style="font-size: 3rem; margin-bottom: 10px;"></i>
-                    <p>Aperçu de l'image</p>
-                </div>
-            `;
-            renderCertifications();
-            
-            alert('Certification enregistrée avec succès!');
         }
 
         function cancelEditForm() {
@@ -1571,10 +1544,6 @@
                     <p>Aperçu de l'image</p>
                 </div>
             `;
-        }
-
-        function saveCertifications() {
-            localStorage.setItem('certifications', JSON.stringify(certifications));
         }
 
         // Prévisualisation de l'image
@@ -1593,7 +1562,7 @@
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', function() {
-            renderCertifications();
+            loadCertifications();
             setupImagePreview();
             
             // Événements
@@ -1653,22 +1622,36 @@
             
             // Menu mobile
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const mainNav = document.getElementById('main-nav');
+            const mobileNav = document.getElementById('mobile-nav');
             
             mobileMenuBtn.addEventListener('click', () => {
-                mainNav.classList.toggle('active');
-                mobileMenuBtn.querySelector('i').classList.toggle('fa-bars');
-                mobileMenuBtn.querySelector('i').classList.toggle('fa-times');
+                mobileNav.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+                
+                if (mobileMenuBtn.classList.contains('active')) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
             });
             
-            // Fermer le menu mobile en cliquant à l'extérieur
-            document.addEventListener('click', (e) => {
-                if (mainNav.classList.contains('active') && 
-                    !e.target.closest('#main-nav') && 
-                    !e.target.closest('.mobile-menu-btn')) {
-                    mainNav.classList.remove('active');
-                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
-                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+            // Fermer le menu mobile en cliquant sur un lien
+            const mobileLinks = document.querySelectorAll('#mobile-nav a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Header scroll effect
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('main-header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
                 }
             });
         });

@@ -3,24 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - AEC</title>
+    <title>Contact - Agricultural Expertise Center</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Variables et reset */
+        /* Variables et reset - Identiques à l'accueil */
         :root {
             --green: #228B22;
             --orange: #FF8C00;
             --light-gray: #F5F5F5;
             --dark-gray: #333333;
             --white: #FFFFFF;
-            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition: all 0.3s ease;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Styles pour le logo personnalisé */
+        .logo-custom {
+            width: 250px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-custom img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        /* Ajustement pour l'espace logo sur mobile */
+        @media (max-width: 992px) {
+            .logo-custom {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-custom {
+                width: 180px;
+                height: 50px;
+            }
         }
         
         body {
@@ -29,7 +57,6 @@
             background-color: var(--white);
             overflow-x: hidden;
             line-height: 1.6;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
         
         h1, h2, h3, h4 {
@@ -53,41 +80,13 @@
             to { transform: translateY(0); opacity: 1; }
         }
         
-        @keyframes slideInFromLeft {
-            from { transform: translateX(-100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes slideInFromRight {
-            from { transform: translateX(100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
         
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        @keyframes glow {
-            0% { box-shadow: 0 0 5px var(--orange); }
-            50% { box-shadow: 0 0 20px var(--orange); }
-            100% { box-shadow: 0 0 5px var(--orange); }
-        }
-        
         /* Styles généraux */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
         .btn-primary {
             background-color: var(--orange);
             color: var(--white);
@@ -106,10 +105,57 @@
         
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
-        /* Header Styles */
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 3px solid var(--white);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-secondary:hover {
+            color: var(--green);
+            border-color: var(--orange);
+            transform: translateY(-5px);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--green);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: var(--orange);
+            border-radius: 3px;
+        }
+        
+        /* Header Styles - Identique à l'accueil */
         #main-header {
             display: flex;
             justify-content: space-between;
@@ -124,43 +170,34 @@
             transition: var(--transition);
         }
         
+        #main-header.scrolled {
+            padding: 10px 5%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+        }
+        
         .logo-container {
             display: flex;
             align-items: center;
         }
-
-        /* Styles pour le logo personnalisé */
-        .logo-custom {
-            width: 180px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo-custom img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-        }
-
-        /* Ajustement pour l'espace logo sur mobile */
-        @media (max-width: 768px) {
-            .logo-custom {
-                width: 150px;
-                height: 50px;
-            }
-        }
         
         .logo-text h1 {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: var(--green);
             margin-bottom: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
         
         .logo-text p {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--orange);
             margin-top: -5px;
+            font-weight: 600;
+        }
+        
+        #main-nav {
+            display: flex;
+            align-items: center;
         }
         
         #main-nav ul {
@@ -169,16 +206,20 @@
         }
         
         #main-nav ul li {
-            margin: 0 15px;
+            margin: 0 10px;
+            position: relative;
         }
         
         #main-nav ul li a {
             text-decoration: none;
             color: var(--dark-gray);
-            font-weight: 600;
+            font-weight: 700;
             position: relative;
-            padding: 5px 0;
+            padding: 8px 0;
             transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
         }
         
         #main-nav ul li a:after {
@@ -190,6 +231,7 @@
             height: 3px;
             background: var(--orange);
             transition: var(--transition);
+            border-radius: 3px;
         }
         
         #main-nav ul li a:hover:after,
@@ -197,14 +239,68 @@
             width: 100%;
         }
         
-        .mobile-menu-btn {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--green);
+        #main-nav ul li a:hover {
+            color: var(--orange);
         }
         
-        /* Hero Section */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--green);
+            transition: var(--transition);
+        }
+        
+        .mobile-menu-btn:hover {
+            color: var(--orange);
+        }
+        
+        /* Mobile menu - Identique à l'accueil */
+        #mobile-nav {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--white);
+            overflow: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        #mobile-nav.active {
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+        
+        #mobile-nav ul {
+            list-style: none;
+            padding: 30px 5%;
+        }
+        
+        #mobile-nav ul li {
+            margin: 20px 0;
+        }
+        
+        #mobile-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            display: block;
+            padding: 10px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        #mobile-nav ul li a:hover {
+            color: var(--orange);
+            padding-left: 15px;
+        }
+        
+        /* Hero Section pour Contact */
         .page-hero {
             padding: 160px 5% 80px;
             text-align: center;
@@ -279,8 +375,6 @@
             display: flex;
             align-items: flex-start;
             margin-bottom: 25px;
-            opacity: 0;
-            transform: translateX(-20px);
         }
         
         .contact-icon {
@@ -371,8 +465,6 @@
         .form-group {
             margin-bottom: 25px;
             position: relative;
-            opacity: 0;
-            transform: translateX(20px);
         }
         
         .form-group label {
@@ -499,11 +591,13 @@
             transform: rotate(180deg);
         }
         
-        /* Footer */
+        /* Footer - Identique à l'accueil */
         #main-footer {
             background: linear-gradient(135deg, var(--dark-gray), #222);
             color: var(--white);
-            padding: 70px 5% 20px;
+            padding: 70px 5% 30px;
+            position: relative;
+            overflow: hidden;
         }
         
         .footer-grid {
@@ -512,24 +606,139 @@
             gap: 40px;
             max-width: 1200px;
             margin: 0 auto 50px;
-        }
-        
-        .footer-about {
-            grid-column: 1 / -1;
-            text-align: center;
+            position: relative;
+            z-index: 2;
         }
         
         .footer-logo {
             display: flex;
             align-items: center;
-            justify-content: center;
             margin-bottom: 20px;
         }
         
-        .footer-logo .logo-custom {
+        .footer-about p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .social-links-footer {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links-footer a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .social-links-footer a:hover {
+            background: var(--orange);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links h4,
+        .footer-contact h4,
+        .footer-newsletter h4 {
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links h4:after,
+        .footer-contact h4:after,
+        .footer-newsletter h4:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--orange);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            font-size: 1rem;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--orange);
+            padding-left: 5px;
+        }
+        
+        .footer-contact ul {
+            list-style: none;
+        }
+        
+        .footer-contact ul li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-contact ul li i {
+            color: var(--orange);
             margin-right: 15px;
-            width: 150px;
-            height: 50px;
+            min-width: 20px;
+            margin-top: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-newsletter p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .footer-newsletter form {
+            display: flex;
+        }
+        
+        .footer-newsletter input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .footer-newsletter button {
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .footer-newsletter button:hover {
+            background: var(--green);
         }
         
         .footer-bottom {
@@ -538,13 +747,30 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding-top: 20px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
-            opacity: 0.7;
+            opacity: 0.8;
+            position: relative;
+            z-index: 2;
         }
         
-        /* Back to top */
+        .footer-extra-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-extra-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-extra-links a:hover {
+            color: var(--orange);
+        }
+        
+        /* Back to top - Identique à l'accueil */
         #back-to-top {
             position: fixed;
             bottom: 30px;
@@ -561,10 +787,10 @@
             justify-content: center;
             font-size: 1.2rem;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
             transition: var(--transition);
             z-index: 999;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         #back-to-top.show {
@@ -578,7 +804,21 @@
         }
         
         /* Responsive */
+        @media (max-width: 1200px) {
+            .page-hero h1 {
+                font-size: 3rem;
+            }
+        }
+        
         @media (max-width: 992px) {
+            #main-nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
             .contact-container {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -586,6 +826,16 @@
             
             .map-container {
                 height: 400px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .footer-extra-links {
+                justify-content: center;
             }
         }
         
@@ -595,7 +845,7 @@
             }
             
             .page-hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
             
             .page-hero p {
@@ -606,44 +856,19 @@
                 padding: 30px;
             }
             
-            .mobile-menu-btn {
-                display: block;
+            .faq-header h2 {
+                font-size: 2.2rem;
             }
             
-            #main-nav {
-                position: fixed;
-                top: 90px;
-                right: -100%;
-                width: 300px;
-                height: calc(100vh - 90px);
-                background: var(--white);
-                padding: 30px;
-                transition: var(--transition);
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            }
-            
-            #main-nav.active {
-                right: 0;
-            }
-            
-            #main-nav ul {
-                flex-direction: column;
-            }
-            
-            #main-nav ul li {
-                margin: 15px 0;
-            }
-            
-            .footer-bottom {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
+            .faq-question {
+                padding: 20px;
+                font-size: 1.1rem;
             }
         }
         
         @media (max-width: 480px) {
             .page-hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .page-hero p {
@@ -668,19 +893,24 @@
                 justify-content: center;
             }
             
-            .faq-header h2 {
-                font-size: 2.2rem;
+            .footer-newsletter form {
+                flex-direction: column;
             }
             
-            .faq-question {
-                padding: 20px;
-                font-size: 1.1rem;
+            .footer-newsletter input {
+                border-radius: 50px;
+                margin-bottom: 10px;
+            }
+            
+            .footer-newsletter button {
+                border-radius: 50px;
+                padding: 12px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header avec navigation -->
+    <!-- Header avec navigation - Identique à l'accueil -->
     <header id="main-header">
         <div class="logo-container">
             <div class="logo-custom">
@@ -690,9 +920,9 @@
         
         <nav id="main-nav">
             <ul>
-                <li><a href="index.html">ACCEUIL</a></li>
+                <li><a href="index.html">ACCUEIL</a></li>
                 <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
-                <li><a href="ODD.html">ODDs</a></li>
+                <li><a href="ODD.html">ODDs VISES</a></li>
                 <li><a href="Certificat.html">CERTIFICATIONS</a></li>
                 <li><a href="Projets.html">PROJETS</a></li>
                 <li class="active"><a href="Contact.html">CONTACT</a></li>
@@ -707,184 +937,229 @@
         </div>
     </header>
 
+    <!-- Mobile navigation - Identique à l'accueil -->
+    <nav id="mobile-nav">
+        <ul>
+            <li><a href="index.html">ACCUEIL</a></li>
+            <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
+            <li><a href="ODD.html">ODDs VISES</a></li>
+            <li><a href="Certificat.html">CERTIFICATIONS</a></li>
+            <li><a href="Projets.html">PROJETS</a></li>
+            <li class="active"><a href="Contact.html">CONTACT</a></li>
+            <li><a href="Partenaires.html">PARTENAIRES</a></li>
+            <li><a href="Galerie.html">GALERIE</a></li>
+            <li><a href="Blog.html">BLOG</a></li>
+        </ul>
+    </nav>
+
     <!-- Hero Section -->
     <section class="page-hero">
-        <div class="container">
-            <h1>Contactez-nous</h1>
-            <p>Une question, un projet ou besoin d'informations? Notre équipe est à votre écoute</p>
-        </div>
+        <h1>Contactez-nous</h1>
+        <p>Une question, un projet ou besoin d'informations? Notre équipe est à votre écoute</p>
     </section>
 
     <!-- Contact Section -->
     <section id="contact">
-        <div class="container">
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h2>Nos Coordonnées</h2>
-                    
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Adresse</h4>
-                                <p>Zongo II, Parakou, BENIN</p>
-                            </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Nos Coordonnées</h2>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Téléphone</h4>
-                                <p>(+229) 96886696</p>
-                                <p>(+229) 66843095</p>
-                            </div>
+                        <div class="contact-text">
+                            <h4>Adresse</h4>
+                            <p>Zongo II, Parakou, BENIN</p>
                         </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Email</h4>
-                                <p><a href="mailto:contact@aec-afrique.org">contact@aec-afrique.org</a></p>
-                                <p><a href="mailto:aecenter@outlook.fr">aecenter@outlook.fr</a></p>
-                            </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
                         </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fab fa-whatsapp"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>WhatsApp</h4>
-                                <p><a href="https://wa.me/22996886696">+229 96886696</a></p>
-                            </div>
+                        <div class="contact-text">
+                            <h4>Téléphone</h4>
+                            <p>(+229) 96886696</p>
+                            <p>(+229) 66843095</p>
                         </div>
                     </div>
                     
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p><a href="mailto:contact@aec-afrique.org">contact@aec-afrique.org</a></p>
+                            <p><a href="mailto:aecenter@outlook.fr">aecenter@outlook.fr</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>WhatsApp</h4>
+                            <p><a href="https://wa.me/22996886696">+229 96886696</a></p>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="contact-form">
-                    <h2>Envoyez-nous un message</h2>
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Nom complet</label>
-                            <input type="text" id="name" class="form-control" placeholder="Votre nom et prénom" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Adresse email</label>
-                            <input type="email" id="email" class="form-control" placeholder="votre@email.com" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="subject">Sujet</label>
-                            <input type="text" id="subject" class="form-control" placeholder="Objet de votre message" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" class="form-control" placeholder="Votre message..." required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn-primary">Envoyer le message</button>
-                    </form>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2>Envoyez-nous un message</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Nom complet</label>
+                        <input type="text" id="name" class="form-control" placeholder="Votre nom et prénom" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Adresse email</label>
+                        <input type="email" id="email" class="form-control" placeholder="votre@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Sujet</label>
+                        <input type="text" id="subject" class="form-control" placeholder="Objet de votre message" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" placeholder="Votre message..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Envoyer le message</button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Map Section -->
     <section id="map">
-        <div class="container">
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126874.49999999999!2d2.55!3d9.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023a21e49d1141d%3A0x5d3e5a5a5a5a5a5a!2sParakou%2C%20Benin!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s" allowfullscreen="" loading="lazy"></iframe>
-            </div>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126874.49999999999!2d2.55!3d9.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023a21e49d1141d%3A0x5d3e5a5a5a5a5a5a!2sParakou%2C%20Benin!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
     <!-- FAQ Section -->
     <section id="faq">
-        <div class="container">
-            <div class="faq-container">
-                <div class="faq-header">
-                    <h2>Questions Fréquentes</h2>
-                    <p>Retrouvez les réponses aux questions les plus fréquemment posées</p>
+        <div class="faq-container">
+            <div class="faq-header">
+                <h2>Questions Fréquentes</h2>
+                <p>Retrouvez les réponses aux questions les plus fréquemment posées</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Comment puis-je m'inscrire à vos programmes de formation?</span>
+                    <i class="fas fa-chevron-down"></i>
                 </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Comment puis-je m'inscrire à vos programmes de formation?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Pour vous inscrire à nos programmes de formation, veuillez nous contacter par email ou téléphone. Notre équipe vous guidera à travers le processus d'inscription et vous fournira toutes les informations nécessaires sur les prérequis, les dates et les modalités de formation.</p>
-                    </div>
+                <div class="faq-answer">
+                    <p>Pour vous inscrire à nos programmes de formation, veuillez nous contacter par email ou téléphone. Notre équipe vous guidera à travers le processus d'inscription et vous fournira toutes les informations nécessaires sur les prérequis, les dates et les modalités de formation.</p>
                 </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Proposez-vous des formations en ligne?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Oui, nous proposons plusieurs formations en ligne via notre plateforme d'e-learning. La certification CVAD, par exemple, se déroule entièrement en ligne avec des sessions interactives avec nos formateurs.</p>
-                    </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Proposez-vous des formations en ligne?</span>
+                    <i class="fas fa-chevron-down"></i>
                 </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Comment puis-je devenir partenaire de l'AEC?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Nous sommes toujours ouverts à de nouveaux partenariats. Veuillez nous contacter directement pour discuter des possibilités de collaboration. Nous travaillons avec des organisations publiques, privées et des ONG partageant nos objectifs de développement durable.</p>
-                    </div>
+                <div class="faq-answer">
+                    <p>Oui, nous proposons plusieurs formations en ligne via notre plateforme d'e-learning. La certification CVAD, par exemple, se déroule entièrement en ligne avec des sessions interactives avec nos formateurs.</p>
                 </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Quels sont les horaires d'ouverture de vos bureaux?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Nos bureaux sont ouverts du lundi au vendredi de 8h00 à 17h00. Vous pouvez également nous contacter par email à tout moment, et nous vous répondrons dans les plus brefs délais.</p>
-                    </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Comment puis-je devenir partenaire de l'AEC?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Nous sommes toujours ouverts à de nouveaux partenariats. Veuillez nous contacter directement pour discuter des possibilités de collaboration. Nous travaillons avec des organisations publiques, privées et des ONG partageant nos objectifs de développement durable.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Quels sont les horaires d'ouverture de vos bureaux?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Nos bureaux sont ouverts du lundi au vendredi de 8h00 à 17h00. Vous pouvez également nous contacter par email à tout moment, et nous vous répondrons dans les plus brefs délais.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer - Identique à l'accueil -->
     <footer id="main-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        <div class="logo-custom">
-                            <img src="logo.png" alt="Logo AEC - Agricultural Expertise Center">
-                        </div>
-                        <h3>Agricultural Expertise Center</h3>
+        <div class="footer-grid">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <div class="logo-custom">
+                        <img src="logo.png" alt="Logo AEC - Agricultural Expertise Center">
                     </div>
-                    <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                    <h3>Agricultural Expertise Center</h3>
+                </div>
+                <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                <div class="social-links-footer">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
-                <div class="footer-extra-links">
-                    <a href="#">Politique de confidentialité</a>
-                    <a href="#">Mentions légales</a>
-                </div>
+            <div class="footer-links">
+                <h4>Liens rapides</h4>
+                <ul>
+                    <li><a href="index.html">ACCUEIL</a></li>
+                    <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
+                    <li><a href="ODD.html">ODDs VISES</a></li>
+                    <li><a href="Certificat.html">CERTIFICATIONS</a></li>
+                    <li><a href="Projets.html">PROJETS</a></li>
+                    <li><a href="Contact.html">CONTACTS</a></li>
+                    <li><a href="Partenaires.html">PARTENAIRES</a></li>
+                    <li><a href="Galerie.html">GALERIE</a></li>
+                    <li><a href="Blog.html">CIFAD BLOG</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Contactez-nous</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Zongo II, Parakou, BENIN</li>
+                    <li><i class="fas fa-phone"></i> (+229) 0196886696 / 0166843095</li>
+                    <li><i class="fas fa-envelope"></i> contact@aec-afrique.org</li>
+                    <li><i class="fas fa-envelope"></i> aecenter@outlook.fr</li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h4>Restez informés</h4>
+                <p>Inscrivez-vous pour recevoir nos actualités</p>
+                <form>
+                    <input type="email" placeholder="Votre email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
+            <div class="footer-extra-links">
+                <a href="#">Politique de confidentialité</a>
+                <a href="#">Mentions légales</a>
             </div>
         </div>
     </footer>
@@ -895,9 +1170,61 @@
     </button>
 
     <script>
-        // Initialisation des animations
+        // Script identique à celui de l'accueil avec des améliorations pour la page Contact
         document.addEventListener('DOMContentLoaded', function() {
-            // Animation des éléments au défilement
+            // Menu mobile
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileNav = document.getElementById('mobile-nav');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+                
+                if (mobileMenuBtn.classList.contains('active')) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+            
+            // Fermer le menu mobile en cliquant sur un lien
+            const mobileLinks = document.querySelectorAll('#mobile-nav a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Header scroll effect
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('main-header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                // Back to top button
+                const backToTopBtn = document.getElementById('back-to-top');
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            // Back to top button
+            const backToTopBtn = document.getElementById('back-to-top');
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Animation des éléments au défilement pour la page Contact
             const animateOnScroll = () => {
                 const contactItems = document.querySelectorAll('.contact-item');
                 contactItems.forEach((item, index) => {
@@ -906,23 +1233,9 @@
                     
                     if (itemPosition < screenPosition) {
                         setTimeout(() => {
-                            item.style.animation = `slideInFromLeft 0.8s ease-out forwards`;
                             item.style.opacity = 1;
                             item.style.transform = 'translateX(0)';
-                        }, index * 100);
-                    }
-                });
-                
-                const formElements = document.querySelectorAll('.form-group');
-                formElements.forEach((element, index) => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.3;
-                    
-                    if (elementPosition < screenPosition) {
-                        setTimeout(() => {
-                            element.style.animation = `slideInFromRight 0.8s ease-out forwards`;
-                            element.style.opacity = 1;
-                            element.style.transform = 'translateX(0)';
+                            item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
                         }, index * 100);
                     }
                 });
@@ -933,34 +1246,6 @@
             
             // Check on scroll
             window.addEventListener('scroll', animateOnScroll);
-            
-            // Back to top button
-            const backToTopBtn = document.getElementById('back-to-top');
-            
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTopBtn.classList.add('show');
-                } else {
-                    backToTopBtn.classList.remove('show');
-                }
-            });
-            
-            backToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Menu mobile
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const mainNav = document.getElementById('main-nav');
-            
-            mobileMenuBtn.addEventListener('click', () => {
-                mainNav.classList.toggle('active');
-                mobileMenuBtn.querySelector('i').classList.toggle('fa-bars');
-                mobileMenuBtn.querySelector('i').classList.toggle('fa-times');
-            });
             
             // FAQ Accordion
             const faqItems = document.querySelectorAll('.faq-item');
@@ -999,17 +1284,6 @@
                     contactForm.reset();
                 } else {
                     alert('Veuillez remplir tous les champs du formulaire.');
-                }
-            });
-            
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (mainNav.classList.contains('active') && 
-                    !e.target.closest('#main-nav') && 
-                    !e.target.closest('.mobile-menu-btn')) {
-                    mainNav.classList.remove('active');
-                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
-                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
                 }
             });
         });

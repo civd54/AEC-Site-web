@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,7 +14,7 @@
             --light-gray: #F5F5F5;
             --dark-gray: #333333;
             --white: #FFFFFF;
-            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition: all 0.3s ease;
         }
         
         * {
@@ -23,15 +22,35 @@
             padding: 0;
             box-sizing: border-box;
         }
-        /* Ajustements pour l'en-tête avec le nouveau logo */
-#main-header {
-    padding: 15px 5%; /* Réduisez le padding si nécessaire */
-}
 
-.logo-container {
-    display: flex;
-    align-items: center;
-}
+        /* Styles pour le logo personnalisé */
+        .logo-custom {
+            width: 250px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-custom img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        /* Ajustement pour l'espace logo sur mobile */
+        @media (max-width: 992px) {
+            .logo-custom {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-custom {
+                width: 180px;
+                height: 50px;
+            }
+        }
+        
         body {
             font-family: 'Open Sans', sans-serif;
             color: var(--dark-gray);
@@ -39,45 +58,12 @@
             overflow-x: hidden;
             line-height: 1.6;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding-top: 80px; /* Pour compenser le header fixe */
         }
         
         h1, h2, h3, h4 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
-        }
-        
-        /* Animations de base */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideInFromTop {
-            from { transform: translateY(-100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        @keyframes slideInFromBottom {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        @keyframes glow {
-            0% { box-shadow: 0 0 5px var(--orange); }
-            50% { box-shadow: 0 0 20px var(--orange); }
-            100% { box-shadow: 0 0 5px var(--orange); }
         }
         
         /* Styles généraux */
@@ -101,11 +87,11 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
-            animation: pulse 2s infinite;
         }
         
         .btn-primary:hover {
             transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
         /* Header Styles */
@@ -113,7 +99,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 5%;
+            padding: 15px 5%;
             position: fixed;
             width: 100%;
             top: 0;
@@ -121,7 +107,12 @@
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             transition: var(--transition);
-            animation: slideInFromTop 0.8s ease-out;
+        }
+        
+        #main-header.scrolled {
+            padding: 10px 5%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
         }
         
         .logo-container {
@@ -129,35 +120,9 @@
             align-items: center;
         }
         
-        /*.logo-placeholder {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--green), var(--orange));
-            border-radius: 50%;
+        #main-nav {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.3);
-        }
-        
-        .logo-placeholder span {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 1.8rem;
-            color: var(--white);
-        }*/
-        
-        .logo-text h1 {
-            font-size: 1.4rem;
-            color: var(--green);
-            margin-bottom: 0;
-        }
-        
-        .logo-text p {
-            font-size: 0.8rem;
-            color: var(--orange);
-            margin-top: -5px;
         }
         
         #main-nav ul {
@@ -167,15 +132,19 @@
         
         #main-nav ul li {
             margin: 0 10px;
+            position: relative;
         }
         
         #main-nav ul li a {
             text-decoration: none;
             color: var(--dark-gray);
-            font-weight: 600;
+            font-weight: 700;
             position: relative;
-            padding: 5px 0;
+            padding: 8px 0;
             transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
         }
         
         #main-nav ul li a:after {
@@ -187,6 +156,7 @@
             height: 3px;
             background: var(--orange);
             transition: var(--transition);
+            border-radius: 3px;
         }
         
         #main-nav ul li a:hover:after,
@@ -194,16 +164,70 @@
             width: 100%;
         }
         
+        #main-nav ul li a:hover {
+            color: var(--orange);
+        }
+        
         .mobile-menu-btn {
             display: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
             color: var(--green);
+            transition: var(--transition);
+        }
+        
+        .mobile-menu-btn:hover {
+            color: var(--orange);
+        }
+        
+        /* Mobile menu */
+        #mobile-nav {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--white);
+            overflow: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        #mobile-nav.active {
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+        
+        #mobile-nav ul {
+            list-style: none;
+            padding: 30px 5%;
+        }
+        
+        #mobile-nav ul li {
+            margin: 20px 0;
+        }
+        
+        #mobile-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            display: block;
+            padding: 10px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        #mobile-nav ul li a:hover {
+            color: var(--orange);
+            padding-left: 15px;
         }
         
         /* Hero Section */
         .page-hero {
-            padding: 160px 5% 80px;
+            padding: 140px 5% 60px;
             text-align: center;
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                         url('https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
@@ -215,32 +239,30 @@
         }
         
         .page-hero h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 20px;
             text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1s ease-out;
         }
         
         .page-hero p {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             max-width: 800px;
             margin: 0 auto;
-            animation: fadeIn 1.5s ease-out;
         }
         
         /* ODDs Section */
         #odds {
-            padding: 100px 5%;
+            padding: 80px 5%;
             position: relative;
         }
         
         .section-header {
             text-align: center;
-            margin-bottom: 70px;
+            margin-bottom: 60px;
         }
         
         .section-header h2 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             color: var(--green);
             margin-bottom: 15px;
             position: relative;
@@ -261,7 +283,7 @@
         
         .odds-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
@@ -276,14 +298,7 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(50px);
             border-top: 5px solid var(--green);
-        }
-        
-        .odd-card.animated {
-            opacity: 1;
-            transform: translateY(0);
         }
         
         .odd-card:hover {
@@ -305,21 +320,24 @@
         .odd-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, var(--green), var(--orange));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            color: var(--white);
-            font-size: 2rem;
             z-index: 1;
             box-shadow: 0 8px 20px rgba(34, 139, 34, 0.3);
-            animation: float 6s ease-in-out infinite;
+            overflow: hidden;
+        }
+        
+        .odd-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .odd-content h3 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--green);
             margin-bottom: 15px;
             min-height: 70px;
@@ -336,7 +354,7 @@
         
         /* Info Section */
         #info {
-            padding: 100px 5%;
+            padding: 80px 5%;
             background: linear-gradient(135deg, var(--green) 0%, #1a6b1a 100%);
             color: var(--white);
         }
@@ -348,12 +366,12 @@
         }
         
         .info-content h2 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 30px;
         }
         
         .info-content p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 40px;
         }
@@ -362,7 +380,9 @@
         #main-footer {
             background: linear-gradient(135deg, var(--dark-gray), #222);
             color: var(--white);
-            padding: 70px 5% 20px;
+            padding: 70px 5% 30px;
+            position: relative;
+            overflow: hidden;
         }
         
         .footer-grid {
@@ -371,24 +391,139 @@
             gap: 40px;
             max-width: 1200px;
             margin: 0 auto 50px;
-        }
-        
-        .footer-about {
-            grid-column: 1 / -1;
-            text-align: center;
+            position: relative;
+            z-index: 2;
         }
         
         .footer-logo {
             display: flex;
             align-items: center;
-            justify-content: center;
             margin-bottom: 20px;
         }
         
-        .footer-logo .logo-placeholder {
+        .footer-about p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--orange);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links h4,
+        .footer-contact h4,
+        .footer-newsletter h4 {
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links h4:after,
+        .footer-contact h4:after,
+        .footer-newsletter h4:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
             width: 50px;
-            height: 50px;
+            height: 4px;
+            background: var(--orange);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            font-size: 1rem;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--orange);
+            padding-left: 5px;
+        }
+        
+        .footer-contact ul {
+            list-style: none;
+        }
+        
+        .footer-contact ul li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-contact ul li i {
+            color: var(--orange);
             margin-right: 15px;
+            min-width: 20px;
+            margin-top: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-newsletter p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .footer-newsletter form {
+            display: flex;
+        }
+        
+        .footer-newsletter input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .footer-newsletter button {
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .footer-newsletter button:hover {
+            background: var(--green);
         }
         
         .footer-bottom {
@@ -397,10 +532,27 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding-top: 20px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
-            opacity: 0.7;
+            opacity: 0.8;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-extra-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-extra-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-extra-links a:hover {
+            color: var(--orange);
         }
         
         /* Back to top */
@@ -420,10 +572,10 @@
             justify-content: center;
             font-size: 1.2rem;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
             transition: var(--transition);
             z-index: 999;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         #back-to-top.show {
@@ -441,71 +593,35 @@
             .odds-grid {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
-        }
-        
-        @media (max-width: 768px) {
-            .page-hero h1 {
-                font-size: 2.5rem;
-            }
             
-            .page-hero p {
-                font-size: 1.2rem;
-            }
-            
-            .section-header h2 {
-                font-size: 2.2rem;
+            #main-nav ul {
+                display: none;
             }
             
             .mobile-menu-btn {
                 display: block;
             }
-            
-            #main-nav {
-                position: fixed;
-                top: 100px;
-                right: -100%;
-                width: 300px;
-                height: calc(100vh - 100px);
-                background: var(--white);
-                padding: 30px;
-                transition: var(--transition);
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            }
-            
-            #main-nav.active {
-                right: 0;
-            }
-            
-            #main-nav ul {
-                flex-direction: column;
-            }
-            
-            #main-nav ul li {
-                margin: 15px 0;
-            }
-            
-            .footer-bottom {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
+            .page-hero {
+                padding: 120px 5% 50px;
+            }
+            
             .page-hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .page-hero p {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             
             .section-header h2 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .odd-card {
-                padding: 20px;
+                padding: 25px;
             }
             
             .odd-content h3 {
@@ -517,65 +633,97 @@
             .odd-number {
                 font-size: 3rem;
             }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .footer-extra-links {
+                justify-content: center;
+            }
         }
-    
-/* Styles pour le logo personnalisé */
-.logo-custom {
-    width: 180px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-}
-
-.logo-custom img {
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: contain;
-}
-
-/* Ajustement pour l'espace logo sur mobile */
-@media (max-width: 768px) {
-    .logo-custom {
-        width: 150px;
-        height: 50px;
-    }
-}
+        
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .page-hero p {
+                font-size: 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.6rem;
+            }
+            
+            .odd-content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .info-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .footer-newsletter form {
+                flex-direction: column;
+            }
+            
+            .footer-newsletter input {
+                border-radius: 50px;
+                margin-bottom: 10px;
+            }
+            
+            .footer-newsletter button {
+                border-radius: 50px;
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Header avec navigation -->
     <header id="main-header">
         <div class="logo-container">
-    <div class="logo-custom">
-        <img src="logo.png" alt="Logo AEC - Agricultural Expertise Center">
-    </div>
-    <!-- Supprimez la section logo-text si votre logo contient déjà le texte -->
-    <div class="logo-text" style="display:none;">
-        <h1>Agricultural Expertise Center</h1>
-        <p>Solutions durables pour l'Afrique</p>
-    </div>
+            <div class="logo-custom">
+                <img src="logo.png" alt="Logo AEC - Agricultural Expertise Center">
+            </div>
         </div>
         
         <nav id="main-nav">
             <ul>
-                <li><a href="index.html">ACCEUIL</a></li>
+                <li><a href="index.html">ACCUEIL</a></li>
                 <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
-                <li class="active"><a href="ODD.html">ODDs</a></li>
+                <li class="active"><a href="ODD.html">ODDs VISES</a></li>
                 <li><a href="Certificat.html">CERTIFICATIONS</a></li>
-                <!--<li><a href="#">PROJECT</a></li>-->
+                <li><a href="Projets.html">PROJETS</a></li>
                 <li><a href="Contact.html">CONTACT</a></li>
-                 <li><a href="Projets.html">PROJETS</a></li>
                 <li><a href="Partenaires.html">PARTENAIRES</a></li>
                 <li><a href="Galerie.html">GALERIE</a></li>
                 <li><a href="Blog.html">BLOG</a></li>
             </ul>
-           
         </nav>
         
         <div class="mobile-menu-btn">
             <i class="fas fa-bars"></i>
         </div>
     </header>
+
+    <!-- Mobile navigation -->
+    <nav id="mobile-nav">
+        <ul>
+            <li><a href="index.html">ACCUEIL</a></li>
+            <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
+            <li class="active"><a href="ODD.html">ODDs VISES</a></li>
+            <li><a href="Certificat.html">CERTIFICATIONS</a></li>
+            <li><a href="Projets.html">PROJETS</a></li>
+            <li><a href="Contact.html">CONTACT</a></li>
+            <li><a href="Partenaires.html">PARTENAIRES</a></li>
+            <li><a href="Galerie.html">GALERIE</a></li>
+            <li><a href="Blog.html">BLOG</a></li>
+        </ul>
+    </nav>
 
     <!-- Hero Section -->
     <section class="page-hero">
@@ -596,7 +744,7 @@
                 <div class="odd-card">
                     <span class="odd-number">1</span>
                     <div class="odd-icon">
-                        <img src="./IMAGES/22.jpg" alt="">
+                        <img src="./IMAGES/22.jpg" alt="Éradication de la pauvreté">
                     </div>
                     <div class="odd-content">
                         <h3>Éradication de la pauvreté</h3>
@@ -607,7 +755,7 @@
                 <div class="odd-card">
                     <span class="odd-number">2</span>
                     <div class="odd-icon">
-                        <img src="./IMAGES/12.jpg" alt="">
+                        <img src="./IMAGES/12.jpg" alt="Lutte contre la faim">
                     </div>
                     <div class="odd-content">
                         <h3>Lutte contre la faim</h3>
@@ -618,7 +766,7 @@
                 <div class="odd-card">
                     <span class="odd-number">6</span>
                     <div class="odd-icon">
-                        <img src="./IMAGES/23.jpg" alt="">
+                        <img src="./IMAGES/23.jpg" alt="Accès à l'eau et à l'assainissement">
                     </div>
                     <div class="odd-content">
                         <h3>Accès à l'eau et à l'assainissement</h3>
@@ -629,7 +777,7 @@
                 <div class="odd-card">
                     <span class="odd-number">7</span>
                     <div class="odd-icon">
-                        <img src="./IMAGES/19.jpg" alt="">
+                        <img src="./IMAGES/19.jpg" alt="Recours aux énergies renouvelables">
                     </div>
                     <div class="odd-content">
                         <h3>Recours aux énergies renouvelables</h3>
@@ -640,7 +788,7 @@
                 <div class="odd-card">
                     <span class="odd-number">8</span>
                     <div class="odd-icon">
-                        <img src="./IMAGES/18.jpg" alt="">
+                        <img src="./IMAGES/18.jpg" alt="Accès à des emplois décents">
                     </div>
                     <div class="odd-content">
                         <h3>Accès à des emplois décents</h3>
@@ -651,7 +799,7 @@
                 <div class="odd-card">
                     <span class="odd-number">9</span>
                     <div class="odd-icon">
-                        <img src="./IMAGES/20.jpg" alt="">
+                        <img src="./IMAGES/20.jpg" alt="Innovation et infrastructures">
                     </div>
                     <div class="odd-content">
                         <h3>Innovation et infrastructures</h3>
@@ -662,7 +810,7 @@
                 <div class="odd-card">
                     <span class="odd-number">10</span>
                     <div class="odd-icon">
-                        <img src="./IMAGES/21.jpg" alt="">
+                        <img src="./IMAGES/21.jpg" alt="Réduction des inégalités">
                     </div>
                     <div class="odd-content">
                         <h3>Réduction des inégalités</h3>
@@ -673,7 +821,7 @@
                 <div class="odd-card">
                     <span class="odd-number">11</span>
                     <div class="odd-icon">
-                        <img src="./IMAGES/24.jpg" alt="">
+                        <img src="./IMAGES/24.jpg" alt="Villes et communautés durables">
                     </div>
                     <div class="odd-content">
                         <h3>Villes et communautés durables</h3>
@@ -684,7 +832,7 @@
                 <div class="odd-card">
                     <span class="odd-number">12</span>
                     <div class="odd-icon">
-                        <img src="./IMAGES/16.jpg" alt="">
+                        <img src="./IMAGES/16.jpg" alt="Consommation et production responsables">
                     </div>
                     <div class="odd-content">
                         <h3>Consommation et production responsables</h3>
@@ -695,7 +843,7 @@
                 <div class="odd-card">
                     <span class="odd-number">13</span>
                     <div class="odd-icon">
-                        <img src="./IMAGES/17.jpg" alt="">
+                        <img src="./IMAGES/17.jpg" alt="Lutte contre les changements climatiques">
                     </div>
                     <div class="odd-content">
                         <h3>Lutte contre les changements climatiques</h3>
@@ -706,10 +854,10 @@
                 <div class="odd-card">
                     <span class="odd-number">4</span>
                     <div class="odd-icon">
-                        <img src="./IMAGES/14.jpg" alt="">
+                        <img src="./IMAGES/14.jpg" alt="Accès à une éducation de qualité">
                     </div>
                     <div class="odd-content">
-                        <h3>Accès à une éducation de qualité</h3>
+                        <h3>Accès à une éducation de quality</h3>
                         <p>Assurer l'accès de tous à une éducation de qualité, sur un pied d'égalité, et promouvoir les possibilités d'apprentissage tout au long de la vie</p>
                     </div>
                 </div>
@@ -730,32 +878,65 @@
 
     <!-- Footer -->
     <footer id="main-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        <div class="logo-container">
-    <div class="logo-custom">
-        <img src="logo.png" alt="Logo AEC - Agricultural Expertise Center">
-    </div>
-    <!-- Supprimez la section logo-text si votre logo contient déjà le texte -->
-    <div class="logo-text" style="display:none;">
-        <h1>Agricultural Expertise Center</h1>
-        <p>Solutions durables pour l'Afrique</p>
-    </div>
+        <div class="footer-grid">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <div class="logo-container">
+                        <div class="logo-custom">
+                            <img src="logo.png" alt="Logo AEC - Agricultural Expertise Center">
                         </div>
-                        <h3>Agricultural Expertise Center</h3>
                     </div>
-                    <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                    <h3>Agricultural Expertise Center</h3>
+                </div>
+                <p>Mettre au service des communautés des solutions durables pour la sécurité alimentaire et la lutte contre la pauvreté.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
-                <div class="footer-extra-links">
-                    <a href="#">Politique de confidentialité</a>
-                    <a href="#">Mentions légales</a>
-                </div>
+            <div class="footer-links">
+                <h4>Liens rapides</h4>
+                <ul>
+                    <li><a href="index.html">ACCUEIL</a></li>
+                    <li><a href="Axes.html">AXES d'INTERVENTION</a></li>
+                    <li><a href="ODD.html">ODDs VISES</a></li>
+                    <li><a href="Certificat.html">CERTIFICATIONS</a></li>
+                    <li><a href="Projets.html">PROJETS</a></li>
+                    <li><a href="Contact.html">CONTACTS</a></li>
+                    <li><a href="Partenaires.html">PARTENAIRES</a></li>
+                    <li><a href="Galerie.html">GALERIE</a></li>
+                    <li><a href="Blog.html">CIFAD BLOG</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Contactez-nous</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Zongo II, Parakou, BENIN</li>
+                    <li><i class="fas fa-phone"></i> (+229) 0196886696 / 0166843095</li>
+                    <li><i class="fas fa-envelope"></i> contact@aec-afrique.org</li>
+                    <li><i class="fas fa-envelope"></i> aecenter@outlook.fr</li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h4>Restez informés</h4>
+                <p>Inscrivez-vous pour recevoir nos actualités</p>
+                <form>
+                    <input type="email" placeholder="Votre email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Agricultural Expertise Center. Tous droits réservés.</p>
+            <div class="footer-extra-links">
+                <a href="#">Politique de confidentialité</a>
+                <a href="#">Mentions légales</a>
             </div>
         </div>
     </footer>
@@ -766,9 +947,60 @@
     </button>
 
     <script>
-        // Initialisation des animations
         document.addEventListener('DOMContentLoaded', function() {
-            // Animation des éléments au défilement
+            // Menu mobile
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileNav = document.getElementById('mobile-nav');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+                
+                if (mobileMenuBtn.classList.contains('active')) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars</i>';
+                }
+            });
+            
+            // Fermer le menu mobile en cliquant sur un lien
+            const mobileLinks = document.querySelectorAll('#mobile-nav a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Header scroll effect
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('main-header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                // Back to top button
+                const backToTopBtn = document.getElementById('back-to-top');
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            // Back to top button
+            const backToTopBtn = document.getElementById('back-to-top');
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Animation des cartes au défilement
             const animateOnScroll = () => {
                 const oddCards = document.querySelectorAll('.odd-card');
                 oddCards.forEach((card, index) => {
@@ -777,55 +1009,25 @@
                     
                     if (cardPosition < screenPosition) {
                         setTimeout(() => {
-                            card.classList.add('animated');
+                            card.style.opacity = "1";
+                            card.style.transform = "translateY(0)";
                         }, index * 100);
                     }
                 });
             };
+            
+            // Initialisation de l'opacité des cartes
+            document.querySelectorAll('.odd-card').forEach(card => {
+                card.style.opacity = "0";
+                card.style.transform = "translateY(50px)";
+                card.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+            });
             
             // Initial check on load
             animateOnScroll();
             
             // Check on scroll
             window.addEventListener('scroll', animateOnScroll);
-            
-            // Back to top button
-            const backToTopBtn = document.getElementById('back-to-top');
-            
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTopBtn.classList.add('show');
-                } else {
-                    backToTopBtn.classList.remove('show');
-                }
-            });
-            
-            backToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Menu mobile
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const mainNav = document.getElementById('main-nav');
-            
-            mobileMenuBtn.addEventListener('click', () => {
-                mainNav.classList.toggle('active');
-            });
-            
-            // Animation des icônes
-            const oddIcons = document.querySelectorAll('.odd-icon');
-            oddIcons.forEach(icon => {
-                icon.addEventListener('mouseenter', () => {
-                    icon.style.animation = 'pulse 1s, glow 1.5s infinite';
-                });
-                
-                icon.addEventListener('mouseleave', () => {
-                    icon.style.animation = 'float 6s ease-in-out infinite';
-                });
-            });
         });
     </script>
 </body>
